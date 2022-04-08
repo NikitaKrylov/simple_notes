@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="CustomSearchView" parent="Widget.AppCompat.SearchView">
+        <item name="android:editTextColor">?android:attr/textColorPrimary</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <style name="TitleEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:hint">@string/title_hint</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <!--        <item name="fontFamily">@font/apercu_medium</item>-->
+    </style>
+
+
+    <style name="TextBodyEditText" parent="TitleEditText">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:background">@drawable/edit_text_style</item>
+        <item name="android:hint">@string/text_body_hint</item>
+
+    </style>
+
+
+
+    <string name="title_hint">Title</string>
+    <string name="text_body_hint">Text</string>
+</resources>

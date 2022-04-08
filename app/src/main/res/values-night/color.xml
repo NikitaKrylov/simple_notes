@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="default_note_background" type="color">@color/Manatee</item>
+
+    <item name="note_test_color" type="color">#3a8a54</item>
+    <item name="colorPrimary" type="color">@color/DarkSlateGray</item>
+    <item name="colorBackground" type="color">@color/AshGray100</item>
+
+
+</resources>

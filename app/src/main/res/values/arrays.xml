@@ -1,0 +1,46 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+
+    <string-array name="theme_entries">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>System</item>
+    </string-array>
+
+
+
+
+    <integer-array name="note_colors_values">
+        <item>@color/TurquoiseGreen</item>
+        <item>@color/OrangeCrayola</item>
+        <item>@color/YellowCrayola</item>
+        <item>@color/Mauve</item>
+        <item>@color/Manatee</item>
+        <item>@color/PalePink</item>
+        <item>@color/Bittersweet</item>
+        <item>@color/LavenderWeb</item>
+
+
+    </integer-array>
+
+    <string-array name="note_colors_entries">
+        <item>TurquoiseGreen</item>
+        <item>OrangeCrayola</item>
+        <item>YellowCrayola</item>
+        <item>Mauve</item>
+        <item>Manatee</item>
+        <item>PalePink</item>
+        <item>Bittersweet</item>
+        <item>LavenderWeb</item>
+    </string-array>
+</resources>

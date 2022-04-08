@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#3ee5d8</color>
+    <color name="teal_700">#03a1a1</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background">#1a1a1a</color>
+    <color name="red">#d40b22</color>
+    <color name="text_hint">#666263</color>
+
+    <color name="item_stroke">@color/white</color>
+    <color name="default_note_background">@color/LightNoteColor</color>
+    <color name="default_note_font_color">#eef0f2</color>
+    <color name="Jet">#333533</color>
+
+    <!-- LightTheme -->
+    <color name="ChampagnePink">#cb997e</color>
+    <color name="CoffeeBrown">#C58D6E</color>
+    <color name="light_brown_100">#fefae0</color>
+    <color name="AshGray">#A5A58D</color>
+    <color name="LightNoteColor">#f8edeb</color>
+
+    <!-- DarkTheme -->
+    <color name="Charcoal">#171717</color>
+    <color name="DarkSlateGray">#1a1a1a</color>
+    <color name="AshGray100">#000000</color>
+    <color name="AshTeal">#78cdd7</color>
+    <color name="DarkNoteColor">@color/Jet</color>
+
+    <!-- Note colors -->
+
+
+    <color name="TurquoiseGreen">#41e076</color>
+    <color name="OrangeCrayola">#ff9f45</color>
+    <color name="YellowCrayola">#f2d64b</color>
+    <color name="Mauve">#ca9ae5</color>
+    <color name="LavenderWeb">#6e6bff</color>
+    <color name="Manatee">#8E9AAF</color>
+    <color name="PalePink">#d9abb2</color>
+    <color name="Bittersweet" >#FF6B6B</color>
+    <color name="light_gray_200">#eef0f2</color>
+
+
+    <item name="note_test_color" type="color">#ffffff</item>
+
+
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorBackground">@color/white</color>
+
+
+
+</resources>

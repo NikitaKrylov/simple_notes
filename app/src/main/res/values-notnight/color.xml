@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="default_note_background" type="color">@color/light_gray_200</item>
+
+    <item name="note_test_color" type="color">#67eb93</item>
+    <item name="colorPrimary" type="color">@color/ChampagnePink</item>
+    <item name="colorBackground" type="color">@color/light_brown_100</item>
+
+</resources>
