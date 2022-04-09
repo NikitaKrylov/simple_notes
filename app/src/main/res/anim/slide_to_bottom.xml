@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" android:duration="350">
+    <translate android:fromYDelta="0%" android:toYDelta="100%" android:fromXDelta="0%" android:toXDelta="120%"/>
+    <alpha android:fromAlpha="1.0" android:toAlpha="0.0"/>
+    <rotate android:fromDegrees="0" android:toDegrees="75" android:pivotX="60%" android:pivotY="100%"/>
+</set>

@@ -3,13 +3,19 @@ package com.example.noteapplication.adapter
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapplication.MainActivity
@@ -43,7 +49,9 @@ class NoteAdapter(private var context: Context) : RecyclerView.Adapter<NoteAdapt
             intent.putExtra("NOTE_ID", note.id)
 
             startActivity(context, intent, null )
+
         }
+
     }
 
     override fun getItemCount(): Int {

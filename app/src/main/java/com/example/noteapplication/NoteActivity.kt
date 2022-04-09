@@ -1,6 +1,9 @@
 package com.example.noteapplication
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +21,7 @@ import com.example.noteapplication.databinding.ActivityNoteBinding
 import com.example.noteapplication.model.Note
 import com.example.noteapplication.viewmodel.NoteViewModel
 import com.example.notewriteractivity.tools.NoteDate
+import com.google.android.material.snackbar.Snackbar
 
 class NoteActivity : AppCompatActivity() {
 
@@ -31,6 +35,8 @@ class NoteActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        overridePendingTransition(R.anim.slide_to_top, R.anim.no_animation)
         setContentView(R.layout.activity_note)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.elevation = 0F
@@ -75,20 +81,22 @@ class NoteActivity : AppCompatActivity() {
     private fun updateNote(noteId:Int?, title : Editable, text:Editable, backgroundColorId:Int){
         if (noteId != null){
             val note = Note(noteId, title.toString(), text.toString(), backgroundColorId, NoteDate().toString(), 0)
+            if (getNoteById(noteId) == note) return
             mNoteViewModel.update(note)
-            notificateSaveAction("Updated successfully")
         }
     }
 
     private fun createNote(title : Editable, text:Editable, backgroundColorId:Int){
         val note = Note(0, title.toString(), text.toString(), backgroundColorId, NoteDate().toString(), 0)
         mNoteViewModel.add(note)
-        notificateSaveAction("Added successfully")
     }
 
     private fun deleteNote(note: Note){
         mNoteViewModel.delete(note)
+        notificateSaveAction("Deleted successfully")
         finish()
+        overridePendingTransition(R.anim.slide_to_bottom, R.anim.no_animation)
+
     }
 
 
@@ -114,6 +122,23 @@ class NoteActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
     }
 
+    private fun createDeleteDialog(){
+        val builder = AlertDialog.Builder(this)
+        builder.apply {
+            setMessage("Do you want to delete note?")
+            setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->
+                if (IS_SAVE_MOD) deleteNote(getNoteById(NOTE_ID))
+                else
+                    finish()
+                    overridePendingTransition(R.anim.no_animation, R.anim.slide_to_bottom)
+
+            })
+            setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->  dialogInterface.cancel()})
+
+        }
+        builder.create().show()
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
         saveNote()
@@ -128,11 +153,16 @@ class NoteActivity : AppCompatActivity() {
         when(item.itemId){
             android.R.id.home -> onBackPressed()
             R.id.delete_menu_btn -> {
-                if (IS_SAVE_MOD) deleteNote(getNoteById(NOTE_ID))
-                else
-                    finish()
-                    notificateSaveAction("Delete successfully")
-                    return true
+                createDeleteDialog()
+                return true
+            }
+            R.id.share_note_btn ->{
+                intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, titleInput.text.toString() + "\n" + textInput.text.toString())
+                    type = "text/plain"
+                }
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -143,4 +173,6 @@ class NoteActivity : AppCompatActivity() {
             activity.window.navigationBarColor = color
         }
     }
+
+
 }

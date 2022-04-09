@@ -20,8 +20,9 @@
         <!-- Customize your theme here. -->
         <item name="colorSurface">@color/Manatee</item>
 
-
     </style>
+
+
 
     <style name="Theme.NoteApplication.NoActionBar">
         <item name="windowActionBar">false</item>
