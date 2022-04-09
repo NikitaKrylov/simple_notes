@@ -10,15 +10,16 @@ import androidx.navigation.ui.AppBarConfiguration
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapplication.adapter.NoteAdapter
 import com.example.noteapplication.databinding.ActivityMainBinding
+import com.example.noteapplication.model.Note
 import com.example.noteapplication.viewmodel.NoteViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         setApplicationTheme(preferences.getString("theme_list_preferences", "Dark"))
+        
 
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -62,6 +64,28 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+
+        val searchItem = menu.findItem(R.id.search).actionView as SearchView
+        searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(string: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onQueryTextChange(string: String?): Boolean {
+                if (string.isNullOrEmpty()){
+                    noteAdapter.setData(mNoteViewModel.getAll.value!!.toList())
+                }
+                else{
+                    val list = mutableListOf<Note>()
+                    mNoteViewModel.getAll.value!!.forEach{
+                        if (it.title.contains(string) || it.text.contains(string)) list.add(it)
+                    }
+                    noteAdapter.setData(list)
+                }
+                return true
+            }
+
+        })
         return true
     }
 

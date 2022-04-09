@@ -1,21 +1,19 @@
-
+package com.example.noteapplication.dock_instrument
 import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.noteapplication.MainActivity
 import com.example.noteapplication.NoteActivity
 import com.example.noteapplication.R
 import com.example.noteapplication.adapter.ColorAdapter
@@ -37,41 +35,39 @@ class ColorPickerFragment() : Fragment(), View.OnClickListener {
     }
 
     private fun setColorRecycler(view:View){
-        val colors = mutableListOf<Color>()
-
-
-
+        colors.clear()
         colors.add(Color(R.color.default_note_background, "Default"))
         colors.add(Color(R.color.note_test_color, "Green"))
-        colors.add(Color(R.color.TurquoiseGreen, "TurquoiseGreen"))
-        colors.add(Color(R.color.OrangeCrayola, "OrangeCrayola"))
-        colors.add(Color(R.color.YellowCrayola, "YellowCrayola"))
-        colors.add(Color(R.color.Mauve, "Mauve"))
-        colors.add(Color(R.color.LavenderWeb, "LavenderWeb"))
-        colors.add(Color(R.color.Manatee, "Manatee"))
-        colors.add(Color(R.color.PalePink, "PalePink"))
-        colors.add(Color(R.color.Bittersweet, "Bittersweet"))
+        colors.add(Color(R.color.PeriwinkleCrayola, "PeriwinkleCrayola"))
+        colors.add(Color(R.color.BrightNavyBlue, "BrightNavyBlue"))
+        colors.add(Color(R.color.RadicalRed, "RadicalRed"))
+        colors.add(Color(R.color.AntiqueBrass, "AntiqueBrass"))
+        colors.add(Color(R.color.MiddleYellow, "MiddleYellow"))
 
 
-        val adapter = ColorAdapter(context as Context, colors, this)
+        val adapter = ColorAdapter(context as Context, colors)
         val recyclerColor = view.findViewById<RecyclerView>(R.id.recyclerBackgroundColor)
 
         recyclerColor.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerColor.adapter = adapter
     }
 
-    fun setBackgroundColor(colorId : Int){
-        ColorPickerFragment.backgroundColorId = colorId
-        activity?.findViewById<ConstraintLayout>(R.id.note_background)?.setBackgroundColor(getColor(requireContext(), colorId))
-        NoteActivity.setNavigationBarColor(activity as Activity, getColor(requireContext(), colorId))
-        (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(context as Context, colorId)))
 
-    }
 
     companion object {
         var backgroundColorId:Int ?= null
+        val colors = mutableListOf<Color>()
+
         @JvmStatic
         fun newInstance()  = ColorPickerFragment()
+
+        fun setBackgroundColor(activity:Activity,  colorId : Int){
+            backgroundColorId = colorId
+            activity.findViewById<CoordinatorLayout>(R.id.note_background)?.setBackgroundColor(getColor(activity, colorId))
+            NoteActivity.setNavigationBarColor(activity, getColor(activity, colorId))
+            (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(activity , colorId)))
+
+        }
     }
 
     override fun onClick(view: View?) {
@@ -83,6 +79,8 @@ class ColorPickerFragment() : Fragment(), View.OnClickListener {
     private fun backToTools() {
         findNavController().navigate(R.id.action_colorPickerFragment_to_defaultToolsFragment)
     }
+
+
 
 
 }

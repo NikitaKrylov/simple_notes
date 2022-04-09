@@ -7,18 +7,17 @@
     android:padding="5dp"
     android:background="@drawable/circle_shape">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_view_item"
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:cardBackgroundColor="@color/teal_700"
         app:cardCornerRadius="10dp"
         android:elevation="0dp"
-
-
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/Charcoal"
         >
 
-
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </FrameLayout>

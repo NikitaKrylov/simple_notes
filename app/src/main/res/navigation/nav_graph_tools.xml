@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/colorPickerFragment"
-        android:name="ColorPickerFragment"
+        android:name="com.example.noteapplication.dock_instrument.ColorPickerFragment"
         android:label="ColorPickerFragment"
         tools:layout="@layout/fragment_color_picker">
         <action

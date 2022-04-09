@@ -2,23 +2,25 @@
     <!-- Base application theme. -->
     <style name="Theme.NoteApplication" parent="Theme.MaterialComponents.DayNight.DarkActionBar"> <!-- DarkActionBar -->
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/ChampagnePink</item>
-        <item name="colorPrimaryVariant">@color/CoffeeBrown</item>
-        <item name="colorOnPrimary">@color/light_brown_100</item>
-        <item name="android:colorBackground">@color/light_brown_100</item>
+        <item name="colorPrimary">#88d4ab</item>
+        <item name="colorPrimaryVariant">#67b99a</item>
+        <item name="colorOnPrimary">@color/Jet</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
         <item name="android:textColorPrimary">@color/Jet</item>
         <item name="android:textColorSecondary">@color/Jet</item>
         <item name="android:textColor">@color/Jet</item>
-        <item name="colorOnSurface">@color/LightNoteColor</item>
-
+        <item name="colorOnSurface">@color/Jet</item>
 
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/ChampagnePink</item>
-        <item name="colorSecondaryVariant">@color/CoffeeBrown</item>
+        <item name="colorSecondary">#67b99a</item>
+        <item name="colorSecondaryVariant">#036666</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="colorSurface">@color/Manatee</item>
+        <item name="colorSurface">#ffffff</item>
+        <item name="android:navigationBarColor">@color/colorBackground</item>
+
+
 
     </style>
 

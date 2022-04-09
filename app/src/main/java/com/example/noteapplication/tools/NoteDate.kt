@@ -1,11 +1,10 @@
-package com.example.notewriteractivity.tools
-
+package com.example.noteapplication.tools
 import java.text.SimpleDateFormat
 import java.util.*
 
 class NoteDate {
     private val date = Date()
-    private val df = SimpleDateFormat("EEEE, MMM d, HH:mm")
+    private val df = SimpleDateFormat("MMM d, HH:mm")
 
     override fun toString(): String {
         return df.format(date)
