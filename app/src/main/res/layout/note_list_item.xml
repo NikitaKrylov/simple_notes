@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="12dp">
+    android:paddingVertical="12dp"
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/noteItemCard"
@@ -13,7 +16,7 @@
         app:cardCornerRadius="6dp"
         android:layout_marginHorizontal="25dp"
         android:background="@drawable/card_item"
-        app:cardElevation="5dp"
+        app:cardElevation="4dp"
         >
 
         <LinearLayout
@@ -36,11 +39,21 @@
                     android:textStyle="bold"
                     android:textSize="17sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/note_card_date"
+                    app:layout_constraintEnd_toStartOf="@+id/isFavouriteMark"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     />
+
+                <ImageView
+                    android:id="@+id/isFavouriteMark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_check"
+                    app:layout_constraintBottom_toBottomOf="@+id/note_card_date"
+                    app:layout_constraintEnd_toStartOf="@+id/note_card_date"
+                    app:layout_constraintTop_toTopOf="@+id/note_card_date"
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/note_card_date"
@@ -48,8 +61,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="8dp"
                     android:gravity="end"
-                    android:text="Saturday, March 26 - 11:59"
+                    android:text="March 26 - 11:59"
                     android:textSize="11sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.333" />

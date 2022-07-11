@@ -7,13 +7,13 @@
     <item
         android:id="@+id/delete_menu_btn"
         android:title="@string/deleteBtn"
-        app:showAsAction="never"
+        app:showAsAction="always"
         android:icon="@drawable/ic_delete"
         />
     <item
         android:id="@+id/share_note_btn"
         android:title="Share"
-        app:showAsAction="never"
+        app:showAsAction="always"
         android:icon="@drawable/ic_share"
         />
 </menu>

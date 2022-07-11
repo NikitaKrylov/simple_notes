@@ -3,16 +3,14 @@
     <item name="default_note_background" type="color">@color/Manatee</item>
 
 
-    <item name="colorPrimary" type="color">@color/DarkSlateGray</item>
-    <item name="colorBackground" type="color">@color/AshGray100</item>
 
     <!--  Note colors  -->
-    <color name="PeriwinkleCrayola" tools:ignore="MissingDefaultResource">#8ba5e0</color>
-    <color name="note_test_color" >#3a8a54</color>
-    <color name="BrightNavyBlue" tools:ignore="MissingDefaultResource">#1976D2</color>
-    <color name="RadicalRed" tools:ignore="MissingDefaultResource">#FF0A54</color>
-    <color name="AntiqueBrass" tools:ignore="MissingDefaultResource">#CB997E</color>
-    <color name="MiddleYellow" tools:ignore="MissingDefaultResource">#d6b747</color>
+    <color name="PeriwinkleCrayola" >#8ba5e0</color>
+    <color name="Green" >#3a8a54</color>
+    <color name="BrightNavyBlue" >#1976D2</color>
+    <color name="RadicalRed" >#d40845</color>
+    <color name="AntiqueBrass" >#CB997E</color>
+    <color name="MiddleYellow" >#d6b747</color>
 
 
 </resources>

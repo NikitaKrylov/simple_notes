@@ -12,6 +12,7 @@ class DefaultToolsFragment : Fragment(), View.OnClickListener {
     private lateinit var colorPickerButton : ImageButton
     private lateinit var imageSetterButton: ImageButton
     private lateinit var fontPickerButton : ImageButton
+    private lateinit var tagEditorButton : ImageButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,11 +24,11 @@ class DefaultToolsFragment : Fragment(), View.OnClickListener {
         colorPickerButton = view.findViewById(R.id.show_color_picker_btn)
         colorPickerButton.setOnClickListener(this)
 
-        imageSetterButton = view.findViewById(R.id.setup_image_into_note_btn)
-        imageSetterButton.setOnClickListener(this)
-
         fontPickerButton = view.findViewById(R.id.show_font_picker_btn)
         fontPickerButton.setOnClickListener(this)
+
+        tagEditorButton = view.findViewById(R.id.html_tag_editor_btn)
+        tagEditorButton.setOnClickListener(this)
 
         return view
     }
@@ -35,14 +36,9 @@ class DefaultToolsFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id){
-            colorPickerButton.id -> {
-                findNavController().navigate(R.id.action_defaultToolsFragment_to_colorPickerFragment)
-
-            }
-            fontPickerButton.id -> {
-                findNavController().navigate(R.id.action_defaultToolsFragment_to_fontPickerFragment)
-            }
-
+            colorPickerButton.id -> findNavController().navigate(R.id.action_defaultToolsFragment_to_colorPickerFragment)
+            fontPickerButton.id -> findNavController().navigate(R.id.action_defaultToolsFragment_to_fontPickerFragment)
+            tagEditorButton.id -> findNavController().navigate(R.id.action_defaultToolsFragment_to_htmlTagEditorFragment)
         }
     }
 

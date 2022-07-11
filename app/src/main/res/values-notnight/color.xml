@@ -2,15 +2,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <item name="default_note_background" type="color">@color/light_gray_200</item>
 
-    <item name="colorPrimary" type="color">@color/ChampagnePink</item>
     <item name="colorBackground" type="color">#fafcfc</item>
 
     <!--  Note colors  -->
-    <item name="PeriwinkleCrayola" type="color" tools:ignore="MissingDefaultResource">#D7E3FC</item>
-    <item name="note_test_color" type="color">#67eb93</item>
-    <color name="BrightNavyBlue" tools:ignore="MissingDefaultResource">#BBDEFB</color>
-    <color name="RadicalRed" tools:ignore="MissingDefaultResource">#FF7096</color>
-    <color name="AntiqueBrass" tools:ignore="MissingDefaultResource">#FFE8D6</color>
-    <color name="MiddleYellow" tools:ignore="MissingDefaultResource">#fceb28</color>
+    <item name="PeriwinkleCrayola" type="color" >#D7E3FC</item>
+    <item name="Green" type="color">#67eb93</item>
+    <color name="BrightNavyBlue" >#BBDEFB</color>
+    <color name="RadicalRed" >#FF7096</color>
+    <color name="AntiqueBrass" >#FFE8D6</color>
+    <color name="MiddleYellow" >#fceb28</color>
 
 </resources>

@@ -21,4 +21,6 @@ interface NoteDao {
 
     @Query("SELECT * FROM NOTE_TABLE WHERE id IN (:id)")
     fun getById(id:Int): Note
+
+
 }

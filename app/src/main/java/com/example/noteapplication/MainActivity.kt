@@ -3,7 +3,9 @@ package com.example.noteapplication
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Debug
 import android.util.Log
+import android.view.ContextMenu
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
@@ -22,6 +24,8 @@ import com.example.noteapplication.databinding.ActivityMainBinding
 import com.example.noteapplication.model.Note
 import com.example.noteapplication.viewmodel.NoteViewModel
 
+
+// Страница приложения с выводом всех заметок
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -41,11 +45,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = resources.getString(R.string.main_activity_title)
+
         binding.fab.setOnClickListener { _ ->
             intent = Intent(applicationContext, NoteActivity::class.java)
             startActivity(intent)
         }
         setNoteRecycler()
+
+
 
     }
 
@@ -68,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         val searchItem = menu.findItem(R.id.search).actionView as SearchView
         searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(string: String?): Boolean {
-                TODO("Not yet implemented")
+                return true
             }
 
             override fun onQueryTextChange(string: String?): Boolean {
@@ -78,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 else{
                     val list = mutableListOf<Note>()
                     mNoteViewModel.getAll.value!!.forEach{
-                        if (it.title.contains(string) || it.text.contains(string)) list.add(it)
+                        if (it.title.lowercase().contains(string.lowercase()) || it.text.lowercase().contains(string.lowercase())) list.add(it)
                     }
                     noteAdapter.setData(list)
                 }
@@ -96,10 +104,13 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 return true
             }
+
             else -> super.onOptionsItemSelected(item)
 
         }
     }
+
+
 
     private fun setNoteRecycler(){
         noteAdapter = NoteAdapter(this )

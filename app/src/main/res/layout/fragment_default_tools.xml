@@ -33,21 +33,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                app:cardCornerRadius="4dp">
 
-                <ImageButton
-                    android:id="@+id/share_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/colorSecondary"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_share" />
-
-            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -65,21 +51,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                app:cardCornerRadius="4dp">
-
-                <ImageButton
-                    android:id="@+id/setup_image_into_note_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/colorSecondary"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_image" />
-
-            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
@@ -94,6 +65,22 @@
                     android:background="?attr/colorSecondary"
                     android:padding="5dp"
                     android:src="@drawable/ic_format_size" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:cardCornerRadius="4dp">
+
+                <ImageButton
+                    android:id="@+id/html_tag_editor_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/colorSecondary"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_code" />
 
             </androidx.cardview.widget.CardView>
 

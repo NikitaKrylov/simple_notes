@@ -37,7 +37,7 @@ class ColorPickerFragment() : Fragment(), View.OnClickListener {
     private fun setColorRecycler(view:View){
         colors.clear()
         colors.add(Color(R.color.default_note_background, "Default"))
-        colors.add(Color(R.color.note_test_color, "Green"))
+        colors.add(Color(R.color.Green, "Green"))
         colors.add(Color(R.color.PeriwinkleCrayola, "PeriwinkleCrayola"))
         colors.add(Color(R.color.BrightNavyBlue, "BrightNavyBlue"))
         colors.add(Color(R.color.RadicalRed, "RadicalRed"))
@@ -65,6 +65,7 @@ class ColorPickerFragment() : Fragment(), View.OnClickListener {
             backgroundColorId = colorId
             activity.findViewById<CoordinatorLayout>(R.id.note_background)?.setBackgroundColor(getColor(activity, colorId))
             NoteActivity.setNavigationBarColor(activity, getColor(activity, colorId))
+            activity.window.statusBarColor = getColor( activity,colorId)
             (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(activity , colorId)))
 
         }

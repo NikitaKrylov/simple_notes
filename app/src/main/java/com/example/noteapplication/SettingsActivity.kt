@@ -10,6 +10,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 
+// Страница настроек
 class SettingsActivity : AppCompatActivity() {
     private lateinit var preferences : SharedPreferences
 
@@ -23,6 +24,7 @@ class SettingsActivity : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = resources.getString(R.string.settings_activity_title)
         preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         useDarkTheme(preferences.getBoolean("useDarkTheme", false))
     }

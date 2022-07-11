@@ -1,25 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.NoteApplication" parent="Theme.MaterialComponents.DayNight.DarkActionBar"> <!-- DarkActionBar -->
+    <style name="Theme.NoteApplication" parent="Theme.MaterialComponents.Light.DarkActionBar"> <!-- DarkActionBar -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">#88d4ab</item>
         <item name="colorPrimaryVariant">#67b99a</item>
-        <item name="colorOnPrimary">@color/Jet</item>
+
+        <item name="colorSecondary">#67b99a</item>
+
         <item name="android:colorBackground">@color/colorBackground</item>
         <item name="android:textColorPrimary">@color/Jet</item>
-        <item name="android:textColorSecondary">@color/Jet</item>
+        <item name="android:textColorSecondary">@color/Jet</item> Цвет иконок в status bar
         <item name="android:textColor">@color/Jet</item>
-        <item name="colorOnSurface">@color/Jet</item>
+<!--        <item name="popupMenuBackground">@color/AshTeal</item>-->
 
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#67b99a</item>
-        <item name="colorSecondaryVariant">#036666</item>
-        <!-- Status bar color. -->
+        <item name="colorOnSurface">@color/Jet</item>  Цвет нажатия на карточку
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-        <item name="colorSurface">#ffffff</item>
         <item name="android:navigationBarColor">@color/colorBackground</item>
-
+        <item name="alertDialogTheme">@style/Widget.Dialog.Alert</item>
 
 
     </style>

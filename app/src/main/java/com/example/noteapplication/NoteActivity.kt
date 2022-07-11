@@ -10,18 +10,22 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.Spanned
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.noteapplication.databinding.ActivityNoteBinding
 import com.example.noteapplication.model.Note
 import com.example.noteapplication.tools.NoteDate
 import com.example.noteapplication.viewmodel.NoteViewModel
 
+
+//Страница чтения и редактирования заметки
 class NoteActivity : AppCompatActivity() {
 
     private lateinit var mNoteViewModel : NoteViewModel
@@ -37,11 +41,11 @@ class NoteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteBinding.inflate(layoutInflater)
-
         overridePendingTransition(R.anim.slide_to_top, R.anim.no_animation)
-
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
 
@@ -60,6 +64,9 @@ class NoteActivity : AppCompatActivity() {
         } else {
             backgroundSurface.setBackgroundColor(getColor(R.color.default_note_background))
             supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.default_note_background)))
+            setNavigationBarColor(this, getColor(R.color.default_note_background))
+            window.statusBarColor = getColor(R.color.default_note_background)
+
         }
     }
 
@@ -67,16 +74,18 @@ class NoteActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setDataToView(note:Note){
         ColorPickerFragment.setBackgroundColor(this, note.backgroundColorId)
-        titleInput.setText(note.title)
-        textInput.setText(note.text)
+        titleInput.setText(fromHtml(note.title))
+        textInput.setText(fromHtml(note.text))
         backgroundSurface.setBackgroundColor(getColor(note.backgroundColorId))
         supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(note.backgroundColorId)))
+        binding.isFavouriteCheckBox.isChecked = when (note.isFavourite){1 -> true else -> false }
     }
 
     //Main save note function
     private fun saveNote(){
         val title = titleInput.text
         val text = textInput.text
+        val isFavourite : Int = when (binding.isFavouriteCheckBox.isChecked) { true -> 1 else -> 0}
 
         var backgroundColorId : Int =  R.color.default_note_background
         if (ColorPickerFragment.backgroundColorId != null)
@@ -85,37 +94,39 @@ class NoteActivity : AppCompatActivity() {
         if (title.isEmpty() && text.isEmpty()) return
 
         if (IS_SAVE_MOD){
-            updateNote(NOTE_ID, title, text, backgroundColorId)
+            updateNote(NOTE_ID, title, text, backgroundColorId, isFavourite)
         }
         else{
-            createNote(title, text, backgroundColorId)
+            createNote(title, text, backgroundColorId, isFavourite)
         }
         ColorPickerFragment.backgroundColorId = null
     }
 
 
-    private fun updateNote(noteId:Int?, title : Editable, text:Editable, backgroundColorId:Int){
+    private fun updateNote(noteId:Int?, title : Editable, text:Editable, backgroundColorId:Int, isFavourite:Int){
         if (noteId != null){
-            currentNote = Note(noteId, title.toString(), text.toString(), backgroundColorId, NoteDate().toString(), 0)
+            currentNote = Note(noteId, title.toString(), text.toString(), backgroundColorId, NoteDate().toString(), isFavourite)
+
             if (mNoteViewModel.getById(noteId) == currentNote) return
+
             mNoteViewModel.update(currentNote!!)
         }
     }
 
-    private fun createNote(title : Editable, text:Editable, backgroundColorId:Int){
-        currentNote = Note(0, title.toString(), text.toString(), backgroundColorId, NoteDate().toString(), 0)
+    private fun createNote(title : Editable, text:Editable, backgroundColorId:Int, isFavourite:Int){
+        currentNote = Note(0, title.toString(), text.toString(), backgroundColorId, NoteDate().toString(), isFavourite)
         mNoteViewModel.add(currentNote!!)
     }
 
     private fun deleteNote(note: Note){
         mNoteViewModel.delete(note)
-        notificateSaveAction("Deleted successfully")
+        Toast.makeText(applicationContext, "Deleted successfully", Toast.LENGTH_SHORT)
         finish()
         overridePendingTransition(R.anim.slide_to_bottom, R.anim.no_animation)
     }
 
     private fun createDeleteDialog(){
-        val builder = AlertDialog.Builder(this)
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this, R.style.Widget_Dialog_Alert)
         builder.apply {
             setMessage("Do you want to delete note?")
             setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->
@@ -125,6 +136,7 @@ class NoteActivity : AppCompatActivity() {
                     overridePendingTransition(R.anim.no_animation, R.anim.slide_to_bottom)
             })
             setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->  dialogInterface.cancel()})
+
         }
         builder.create().show()
     }
@@ -135,7 +147,7 @@ class NoteActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.updater_menu, menu)
+        menuInflater.inflate(R.menu.note_menu, menu)
         return true
     }
 
@@ -157,13 +169,14 @@ class NoteActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-    private fun notificateSaveAction(message:String){
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
-    }
+
 
     companion object {
         fun setNavigationBarColor(activity: Activity, color:Int) {
             activity.window.navigationBarColor = color
+        }
+        fun fromHtml(string:String) : Spanned{
+            return HtmlCompat.fromHtml(string, HtmlCompat.FROM_HTML_MODE_LEGACY)
         }
 
     }

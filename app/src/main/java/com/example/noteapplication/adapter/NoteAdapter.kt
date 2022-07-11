@@ -2,21 +2,21 @@ package com.example.noteapplication.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.text.Layout
 import android.util.Log
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat.startActivity
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapplication.MainActivity
 import com.example.noteapplication.NoteActivity
@@ -26,6 +26,7 @@ import com.example.noteapplication.model.Note
 class NoteAdapter(private var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     private var notes = emptyList<Note>()
+    private var preferences : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val noteView = LayoutInflater.from(context).inflate(R.layout.note_list_item, parent, false)
@@ -36,9 +37,14 @@ class NoteAdapter(private var context: Context) : RecyclerView.Adapter<NoteAdapt
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val note =  notes[position]
 
-        holder.title.text = note.title
-        holder.text.text = note.text
-        holder.date.text = note.creationDatetime
+        holder.text.maxLines = preferences.getInt("max_note_card_line_preferences", R.integer.default_max_note_card_line_count)
+        //Log.d(MainActivity.LOG_TAG, preferences.getInt("max_note_card_line_preferences", 0).toString())
+
+        holder.title.text = NoteActivity.fromHtml(note.title)
+        holder.text.text = NoteActivity.fromHtml(note.text)
+        holder.date.text = NoteActivity.fromHtml(note.creationDatetime )
+        holder.favouriteMark.visibility = when (note.isFavourite) {1 -> ImageView.VISIBLE else -> ImageView.INVISIBLE}
+
 
         val color = context.getColor(note.backgroundColorId)
         holder.cardItem.setCardBackgroundColor(color)
@@ -58,11 +64,24 @@ class NoteAdapter(private var context: Context) : RecyclerView.Adapter<NoteAdapt
         return notes.size
     }
 
-    class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnCreateContextMenuListener{
         val title: TextView = itemView.findViewById(R.id.note_card_title)
         val text: TextView = itemView.findViewById(R.id.note_card_text)
         val date: TextView = itemView.findViewById(R.id.note_card_date)
         val cardItem: CardView = itemView.findViewById(R.id.noteItemCard)
+        val favouriteMark :ImageView = itemView.findViewById(R.id.isFavouriteMark)
+
+        init {
+            cardItem.setOnCreateContextMenuListener(this)
+        }
+
+        override fun onCreateContextMenu(menu: ContextMenu?, p1: View?, p2: ContextMenu.ContextMenuInfo?)
+        {
+            menu?.add(this.adapterPosition, 121, 0, "Share")
+            menu?.add(this.adapterPosition, 122, 1, "Delete")
+
+        }
+
     }
 
     public fun setData(notes : List<Note>) {

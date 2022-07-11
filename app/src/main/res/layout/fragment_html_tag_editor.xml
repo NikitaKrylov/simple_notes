@@ -22,11 +22,10 @@
     </androidx.cardview.widget.CardView>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerFont"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:listitem="@layout/font_item" />
+        android:text="This is html tag editor, implementation will be latter"
+        android:paddingStart="5dp"/>
 
 </LinearLayout>
