@@ -1,5 +1,6 @@
 package com.example.noteapplication
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -28,7 +29,6 @@ import com.example.noteapplication.viewmodel.NoteViewModel
 // Страница приложения с выводом всех заметок
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var noteAdapter : NoteAdapter
     private lateinit var mNoteViewModel : NoteViewModel
@@ -37,8 +37,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        setApplicationTheme(preferences.getString("theme_list_preferences", "Dark"))
-        
 
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -104,13 +102,39 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 return true
             }
-
             else -> super.onOptionsItemSelected(item)
 
         }
     }
 
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            R.id.share_note_btn -> {
+                intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, noteAdapter.getNote(item.groupId).title + "\n" + noteAdapter.getNote(item.groupId).text)
+                    type = "text/plain"
+                }
+                startActivity(intent)
+                return true
+            }
+            R.id.delete_menu_btn -> {
+                val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+                builder.apply {
+                    setMessage("Do you want to delete note?")
+                    setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->
+                        mNoteViewModel.delete(noteAdapter.getNote(item.groupId))
+                        Snackbar.make(binding.fab, "Deleted successfully", Snackbar.LENGTH_LONG).show()
+                    })
+                    setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->  dialogInterface.cancel()})
 
+                }
+                builder.create().show()
+                return true
+            }
+        }
+        return super.onContextItemSelected(item)
+    }
 
     private fun setNoteRecycler(){
         noteAdapter = NoteAdapter(this )
@@ -124,6 +148,10 @@ class MainActivity : AppCompatActivity() {
         recyclerNote.layoutManager = layoutManager
         recyclerNote.adapter = noteAdapter
     }
+
+
+
+
 
     companion object{
         const val LOG_TAG = "MY_LOG"

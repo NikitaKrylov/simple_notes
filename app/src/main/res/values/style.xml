@@ -30,7 +30,7 @@
     </style>
 
     <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:textColor">#67b99a</item>
+        <item name="android:textColor">#3b8d69</item>
     </style>
 
 

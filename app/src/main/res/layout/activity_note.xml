@@ -42,7 +42,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="14dp">
+            android:padding="14dp"
+            >
 
             <EditText
                 android:id="@+id/noteTitle"
@@ -52,6 +53,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:inputType="textCapSentences"
+
+
                 />
 
             <EditText
@@ -62,7 +66,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/noteTitle"
-                android:layout_marginVertical="10dp"/>
+                android:layout_marginVertical="10dp"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

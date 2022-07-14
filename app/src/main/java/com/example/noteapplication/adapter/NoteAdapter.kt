@@ -22,12 +22,14 @@ import com.example.noteapplication.MainActivity
 import com.example.noteapplication.NoteActivity
 import com.example.noteapplication.R
 import com.example.noteapplication.model.Note
+import kotlin.coroutines.coroutineContext
 
-class NoteAdapter(private var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
+class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     private var notes = emptyList<Note>()
     private var preferences : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val noteView = LayoutInflater.from(context).inflate(R.layout.note_list_item, parent, false)
         return NoteAdapter.NoteViewHolder(noteView)
@@ -58,12 +60,22 @@ class NoteAdapter(private var context: Context) : RecyclerView.Adapter<NoteAdapt
 
         }
 
+
+
+    }
+
+    fun getNoteId(groupId: Int): Int{
+        return notes[groupId].id
+    }
+    fun getNote(groupId: Int): Note{
+        return notes[groupId]
     }
 
     override fun getItemCount(): Int {
         return notes.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnCreateContextMenuListener{
         val title: TextView = itemView.findViewById(R.id.note_card_title)
         val text: TextView = itemView.findViewById(R.id.note_card_text)
@@ -77,10 +89,10 @@ class NoteAdapter(private var context: Context) : RecyclerView.Adapter<NoteAdapt
 
         override fun onCreateContextMenu(menu: ContextMenu?, p1: View?, p2: ContextMenu.ContextMenuInfo?)
         {
-            menu?.add(this.adapterPosition, 121, 0, "Share")
-            menu?.add(this.adapterPosition, 122, 1, "Delete")
-
+            menu?.add(this.adapterPosition, R.id.share_note_btn, 0, "Share")
+            menu?.add(this.adapterPosition, R.id.delete_menu_btn, 1, "Delete")
         }
+
 
     }
 
@@ -88,4 +100,5 @@ class NoteAdapter(private var context: Context) : RecyclerView.Adapter<NoteAdapt
         this.notes = notes
         notifyDataSetChanged()
     }
+
 }

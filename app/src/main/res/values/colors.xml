@@ -18,7 +18,15 @@
     <color name="Charcoal">#171717</color>
     <color name="DarkSlateGray">#1a1a1a</color>
     <color name="AshGray100">#000000</color>
-    <color name="AshTeal">#78cdd7</color>
+    <color name="dark_grey">#121212</color>
+
+    <color name="ash_teal50">#e4f7f8</color>
+    <color name="ash_teal100">#bceaee</color>
+    <color name="ash_teal300">#78cdd7</color>
+    <color name="ash_teal500">#61b9c7</color>
+    <color name="ash_teal900">#3b5d5d</color>
+
+
     <color name="DarkNoteColor">@color/Jet</color>
     <color name="Manatee">#8E9AAF</color>
     <color name="light_gray_200">#eef0f2</color>

@@ -7,7 +7,7 @@
 
     </style>
     <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:textColor">@color/AshTeal</item>
-        <item name="colorPrimaryVariant">@color/AshTeal</item>
+        <item name="android:textColor">@color/ash_teal300</item>
+        <item name="colorPrimaryVariant">@color/ash_teal300</item>
     </style>
 </resources>

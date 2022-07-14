@@ -6,20 +6,19 @@
         <item name="colorPrimary">@color/Jet</item>
         <item name="colorPrimaryVariant">@color/Jet</item>
 
-        <item name="colorSecondary">@color/AshTeal</item>
+        <item name="colorSecondary">@color/ash_teal300</item>
 
         <item name="android:colorBackground">@color/DarkSlateGray</item>
         <item name="android:textColorPrimary">@color/default_note_font_color</item>
         <item name="android:textColorSecondary">@color/default_note_font_color</item>
         <item name="android:textColor">@color/default_note_font_color</item>
-        <item name="popupMenuBackground">@color/AshTeal</item>
 
         <item name="alertDialogTheme">@style/Widget.Dialog.Alert</item>
-
 
         <item name="colorSurface">@color/Jet</item>
         <item name="android:statusBarColor">#202121</item>
         <item name="android:navigationBarColor">@color/DarkSlateGray</item>
+
 
     </style>
 

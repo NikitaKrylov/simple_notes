@@ -7,15 +7,14 @@
 
         <item name="colorSecondary">#67b99a</item>
 
-        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:colorBackground">@color/default_note_background</item>
         <item name="android:textColorPrimary">@color/Jet</item>
         <item name="android:textColorSecondary">@color/Jet</item> Цвет иконок в status bar
         <item name="android:textColor">@color/Jet</item>
-<!--        <item name="popupMenuBackground">@color/AshTeal</item>-->
 
-        <item name="colorOnSurface">@color/Jet</item>  Цвет нажатия на карточку
+
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <item name="android:navigationBarColor">@color/colorBackground</item>
+        <item name="android:navigationBarColor">@color/default_note_background</item>
         <item name="alertDialogTheme">@style/Widget.Dialog.Alert</item>
 
 

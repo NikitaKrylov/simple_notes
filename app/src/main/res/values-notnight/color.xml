@@ -2,8 +2,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <item name="default_note_background" type="color">@color/light_gray_200</item>
 
-    <item name="colorBackground" type="color">#fafcfc</item>
-
+<!--    <item name="colorBackground" type="color">#fafcfc</item>-->
+<!--    <item name="default_note_background" type="color">#fafcfc</item>-->
     <!--  Note colors  -->
     <item name="PeriwinkleCrayola" type="color" >#D7E3FC</item>
     <item name="Green" type="color">#67eb93</item>

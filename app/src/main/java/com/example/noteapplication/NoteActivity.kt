@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.Spanned
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -141,10 +142,7 @@ class NoteActivity : AppCompatActivity() {
         builder.create().show()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        saveNote()
-    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.note_menu, menu)
@@ -170,6 +168,10 @@ class NoteActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onPause() {
+        saveNote()
+        super.onPause()
+    }
 
     companion object {
         fun setNavigationBarColor(activity: Activity, color:Int) {
