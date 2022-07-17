@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NoteApplication</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="deleteBtn">Удалить</string>
+    <string name="shareBtn">Поделиться</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="card_view_header">Карточка заметки</string>
+    <string name="theme_header">Тема</string>
+    <string name="application_header">Приложение</string>
+    <string name="localization_header">Язык</string>
+    <string name="max_note_card_line_header">Кол-во строк в карточке заметки</string>
+
+
+    <!--  Activity Titles  -->
+    <string name="main_activity_title">Заметки</string>
+    <string name="settings">Настройки</string>
+
+
+    <string name="title_hint">Заголовок</string>
+    <string name="text_body_hint">Текст</string>
+
+    <!--  Questions  -->
+    <string name="delete_question">Хотите удалить заметку?</string>
+
+    <!--  Another  -->
+    <string name="requires_application_restart">Требует перезагрузки приложения</string>
+
+</resources>

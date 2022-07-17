@@ -1,20 +1,12 @@
 package com.example.noteapplication
 
-import android.content.DialogInterface
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
 import android.os.Bundle
-import android.os.Debug
-import android.util.Log
-import android.view.ContextMenu
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ui.AppBarConfiguration
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
@@ -36,12 +28,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-
-        mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+
+//        Support Action Bar
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = resources.getString(R.string.main_activity_title)
 
@@ -50,10 +43,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         setNoteRecycler()
-
-
-
+//        Register Receivers
+//        val intentFilter = IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED)
+//        val receiver = TrashboxCleanReciver()
+//        registerReceiver(receiver, intentFilter)
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -121,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             R.id.delete_menu_btn -> {
                 val builder = androidx.appcompat.app.AlertDialog.Builder(this)
                 builder.apply {
-                    setMessage("Do you want to delete note?")
+                    setMessage(resources.getString(R.string.delete_question))
                     setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->
                         mNoteViewModel.delete(noteAdapter.getNote(item.groupId))
                         Snackbar.make(binding.fab, "Deleted successfully", Snackbar.LENGTH_LONG).show()

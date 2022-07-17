@@ -9,6 +9,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.text.Editable
 import android.text.Spanned
 import android.util.Log
@@ -44,12 +46,15 @@ class NoteActivity : AppCompatActivity() {
         binding = ActivityNoteBinding.inflate(layoutInflater)
         overridePendingTransition(R.anim.slide_to_top, R.anim.no_animation)
         setContentView(binding.root)
+
+//      Support Action Bar
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
 
+//      Views
         titleInput = findViewById(R.id.noteTitle)
         textInput = findViewById(R.id.noteText)
         backgroundSurface = findViewById(R.id.note_background)
@@ -129,7 +134,7 @@ class NoteActivity : AppCompatActivity() {
     private fun createDeleteDialog(){
         val builder = androidx.appcompat.app.AlertDialog.Builder(this, R.style.Widget_Dialog_Alert)
         builder.apply {
-            setMessage("Do you want to delete note?")
+            setMessage(resources.getString(R.string.delete_question))
             setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->
                 if (IS_SAVE_MOD) deleteNote(mNoteViewModel.getById(NOTE_ID!!))
                 else

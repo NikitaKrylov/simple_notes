@@ -5,26 +5,31 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="deleteBtn">Delete</string>
+    <string name="shareBtn">Delete</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
     <string name="card_view_header">Note Card</string>
+    <string name="theme_header">Theme</string>
+    <string name="application_header">Application</string>
+    <string name="localization_header">Language</string>
+    <string name="max_note_card_line_header">Maximum note card text lines</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <!--  Preference summary  -->
+
 
     <!-- Sync Preferences -->
 
-    <string name="notification_header">Notifications</string>
-    <string name="application_header">Application</string>
-
     <!--  Activity Titles  -->
     <string name="main_activity_title">Notes</string>
-    <string name="settings_activity_title">Settings</string>
+    <string name="settings">Settings</string>
+
+    <!--  Questions  -->
+    <string name="delete_question">Do you want to delete note?</string>
+
+    <!--  Another  -->
+    <string name="requires_application_restart">Requires application restart</string>
+
+
 </resources>

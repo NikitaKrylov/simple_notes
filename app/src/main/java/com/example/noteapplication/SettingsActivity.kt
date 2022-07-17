@@ -1,14 +1,18 @@
 package com.example.noteapplication
 
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Config
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import java.util.*
 
 // Страница настроек
 class SettingsActivity : AppCompatActivity() {
@@ -24,9 +28,11 @@ class SettingsActivity : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = resources.getString(R.string.settings_activity_title)
+        supportActionBar?.title = resources.getString(R.string.settings)
         preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+
         useDarkTheme(preferences.getBoolean("useDarkTheme", false))
+        setLocalization(preferences.getString("localization_preference", "en"))
     }
 
 
@@ -42,6 +48,14 @@ class SettingsActivity : AppCompatActivity() {
             true -> setTheme(AppCompatDelegate.MODE_NIGHT_YES)
             false -> setTheme(AppCompatDelegate.MODE_NIGHT_NO)
         }
+    }
+    private fun setLocalization(code: String?){
+        val locale: Locale = Locale(code)
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+        config.setLocale(locale)
+        baseContext.resources.configuration.setLocale(locale)
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {

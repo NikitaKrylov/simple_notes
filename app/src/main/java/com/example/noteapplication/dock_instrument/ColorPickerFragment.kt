@@ -64,7 +64,8 @@ class ColorPickerFragment() : Fragment(), View.OnClickListener {
         fun setBackgroundColor(activity:Activity,  colorId : Int){
             backgroundColorId = colorId
             activity.findViewById<CoordinatorLayout>(R.id.note_background)?.setBackgroundColor(getColor(activity, colorId))
-            NoteActivity.setNavigationBarColor(activity, getColor(activity, colorId))
+            activity.window.navigationBarColor = getColor(activity, colorId)
+//            NoteActivity.setNavigationBarColor(activity, getColor(activity, colorId))
             activity.window.statusBarColor = getColor( activity,colorId)
             (activity as AppCompatActivity).supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(activity , colorId)))
 

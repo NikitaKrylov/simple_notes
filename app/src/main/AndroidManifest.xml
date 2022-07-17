@@ -10,13 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NoteApplication">
         <activity
+            android:name=".TrashBoxActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".NoteActivity"
             android:exported="false"
-            android:theme="@style/Theme.NoteApplication.NoActionBar"/>
+            android:theme="@style/Theme.NoteApplication.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -28,6 +31,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

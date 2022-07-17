@@ -12,32 +12,38 @@
             app:summaryOn="When application starts note page will be show"
             app:defaultValue="false"
             />
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="Theme">
 
         <ListPreference
-            app:key="theme_list_preferences"
-            app:title="Choose application theme"
-            app:entries="@array/theme_entries"
-            app:entryValues="@array/theme_entries"
-            app:defaultValue="Light"
-            app:useSimpleSummaryProvider="true">
-
-        </ListPreference>
-
+            app:title="@string/localization_header"
+            app:key="localization_preference"
+            app:entries="@array/lang_name"
+            android:entryValues="@array/lang_code"
+            app:useSimpleSummaryProvider="true"
+            />
     </PreferenceCategory>
+
+
+    <ListPreference
+        app:key="theme_list_preferences"
+        app:title="@string/theme_header"
+        app:entries="@array/theme_entries"
+        app:entryValues="@array/theme_entries"
+        app:defaultValue="Light"
+        app:useSimpleSummaryProvider="true">
+
+    </ListPreference>
+
 
     <PreferenceCategory app:title="@string/card_view_header">
         <SeekBarPreference
-            android:title="Maximum note card text lines (requires application restart)"
+            android:title="@string/max_note_card_line_header"
             app:singleLineTitle="false"
             app:key="max_note_card_line_preferences"
             app:min="1"
             android:max="20"
             app:defaultValue="@integer/default_max_note_card_line_count"
             app:showSeekBarValue="true"
-
+            android:summary="@string/requires_application_restart"
             />
 
     </PreferenceCategory>
