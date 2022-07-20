@@ -13,8 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/note_list_item"
-        android:layout_marginTop="13dp">
+        tools:listitem="@layout/note_list_item">
 
     </androidx.recyclerview.widget.RecyclerView>
 

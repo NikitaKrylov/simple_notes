@@ -11,7 +11,8 @@
         android:theme="@style/Theme.NoteApplication">
         <activity
             android:name=".TrashBoxActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.NoteApplication.NoActionBar"/>
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
@@ -32,6 +33,14 @@
             </intent-filter>
         </activity>
 
+        <receiver
+            android:name=".tools.TrashBoxUpdateReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.noteapplication.action.UPDATE_TRASH_BOX" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

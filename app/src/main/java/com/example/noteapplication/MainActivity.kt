@@ -2,11 +2,13 @@ package com.example.noteapplication
 
 import android.content.*
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
@@ -15,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapplication.adapter.NoteAdapter
 import com.example.noteapplication.databinding.ActivityMainBinding
 import com.example.noteapplication.model.Note
+import com.example.noteapplication.tools.DatetimeHelper
+import com.example.noteapplication.tools.TrashBoxUpdateReceiver
 import com.example.noteapplication.viewmodel.NoteViewModel
 
 
@@ -44,9 +48,10 @@ class MainActivity : AppCompatActivity() {
         }
         setNoteRecycler()
 //        Register Receivers
-//        val intentFilter = IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED)
-//        val receiver = TrashboxCleanReciver()
+//        val intentFilter = IntentFilter()
+//        val receiver = TrashBoxUpdateReceiver()
 //        registerReceiver(receiver, intentFilter)
+
     }
 
 
@@ -95,6 +100,12 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
+                return true
+            }
+            R.id.action_trashbox -> {
+                Intent(this, TrashBoxActivity::class.java).also {
+                    startActivity(it)
+                }
                 return true
             }
             else -> super.onOptionsItemSelected(item)

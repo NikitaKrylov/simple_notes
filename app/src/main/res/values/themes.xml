@@ -9,7 +9,8 @@
 
         <item name="android:colorBackground">@color/default_note_background</item>
         <item name="android:textColorPrimary">@color/Jet</item>
-        <item name="android:textColorSecondary">@color/Jet</item> Цвет иконок в status bar
+        <item name="android:textColorSecondary">@color/Jet</item>
+        Цвет иконок в status bar
         <item name="android:textColor">@color/Jet</item>
 
 
@@ -19,7 +20,6 @@
 
 
     </style>
-
 
 
     <style name="Theme.NoteApplication.NoActionBar">
