@@ -5,11 +5,11 @@
 <!--    <item name="colorBackground" type="color">#fafcfc</item>-->
 <!--    <item name="default_note_background" type="color">#fafcfc</item>-->
     <!--  Note colors  -->
-    <item name="PeriwinkleCrayola" type="color" >#D7E3FC</item>
-    <item name="Green" type="color">#67eb93</item>
+    <item name="PeriwinkleCrayola" type="color" >#a1b8e6</item>
+    <item name="Green" type="color">#9bf1b4</item>
     <color name="BrightNavyBlue" >#BBDEFB</color>
-    <color name="RadicalRed" >#FF7096</color>
+    <color name="RadicalRed" >#ff98b4</color>
     <color name="AntiqueBrass" >#FFE8D6</color>
-    <color name="MiddleYellow" >#fceb28</color>
+    <color name="MiddleYellow" >#fef598</color>
 
 </resources>

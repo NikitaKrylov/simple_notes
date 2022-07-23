@@ -33,5 +33,7 @@
 
     <!--  Another  -->
     <string name="requires_application_restart">Требует перезагрузки приложения</string>
+    <string name="note_amount_text">Всего заметок:</string>
+    <string name="trash_note_amount_text">Заметок в корзине:</string>
 
 </resources>

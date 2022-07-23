@@ -146,6 +146,7 @@ class MainActivity : AppCompatActivity() {
         noteAdapter = NoteAdapter(this )
         mNoteViewModel.getAll.observe(this, Observer { notes ->
             noteAdapter.setData(notes)
+            binding.noteAmountText.text = getString(R.string.note_amount_text) + " " + notes.count()
         })
 
         val recyclerNote = findViewById<RecyclerView>(R.id.noteRecycler)

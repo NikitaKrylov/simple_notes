@@ -6,11 +6,11 @@
 
 
     <!--  Note colors  -->
-    <color name="PeriwinkleCrayola" >#8ba5e0</color>
+    <color name="PeriwinkleCrayola" >#5540b4</color>
     <color name="Green" >#3a8a54</color>
     <color name="BrightNavyBlue" >#1976D2</color>
-    <color name="RadicalRed" >#d40845</color>
-    <color name="AntiqueBrass" >#CB997E</color>
+    <color name="RadicalRed" >#bf0042</color>
+    <color name="AntiqueBrass" >#734b37</color>
     <color name="MiddleYellow" >#d6b747</color>
 
 

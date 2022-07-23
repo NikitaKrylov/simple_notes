@@ -28,11 +28,7 @@ class TrashBoxActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
+    
 
     companion object {
         const val ACTION_UPDATE_TRASH_BOX = "com.noteapplication.action.UPDATE_TRASH_BOX"

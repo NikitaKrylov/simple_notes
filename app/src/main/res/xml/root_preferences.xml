@@ -27,7 +27,7 @@
         app:key="theme_list_preferences"
         app:title="@string/theme_header"
         app:entries="@array/theme_entries"
-        app:entryValues="@array/theme_entries"
+        app:entryValues="@array/theme_values"
         app:defaultValue="Light"
         app:useSimpleSummaryProvider="true">
 

@@ -24,15 +24,15 @@
     <!--  Activity Titles  -->
     <string name="main_activity_title">Notes</string>
     <string name="settings">Settings</string>
-
+    <string name="trashbox">Trashbox</string>
     <!--  Questions  -->
     <string name="delete_question">Do you want to delete note?</string>
 
     <!--  Another  -->
     <string name="requires_application_restart">Requires application restart</string>
-    <string name="trashbox">Trashbox</string>
-    <string name="title_activity_scrolling">ScrollingActivity</string>
-    <string name="large_text">
+    <string name="note_amount_text">There are notes:</string>
+    <string name="trash_note_amount_text">Notes in bin:</string>
+    <string name="large_text" translatable="false">
         "Material is the metaphor.\n\n"
 
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."
