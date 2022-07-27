@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
@@ -17,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapplication.adapter.NoteAdapter
 import com.example.noteapplication.databinding.ActivityMainBinding
 import com.example.noteapplication.model.Note
-import com.example.noteapplication.tools.DatetimeHelper
-import com.example.noteapplication.tools.TrashBoxUpdateReceiver
+import com.example.noteapplication.tools.NoteSorter
 import com.example.noteapplication.viewmodel.NoteViewModel
 
 
@@ -29,14 +27,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var noteAdapter : NoteAdapter
     private lateinit var mNoteViewModel : NoteViewModel
     private lateinit var preferences : SharedPreferences
+    private var mNoteSorter = NoteSorter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
+        setApplicationTheme(preferences.getString("theme_list_preferences", "Light"))
+
+        setContentView(binding.root)
 
 //        Support Action Bar
         setSupportActionBar(binding.toolbar)
@@ -47,17 +47,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         setNoteRecycler()
-//        Register Receivers
-//        val intentFilter = IntentFilter()
-//        val receiver = TrashBoxUpdateReceiver()
-//        registerReceiver(receiver, intentFilter)
 
     }
 
 
     override fun onResume() {
         super.onResume()
-        setApplicationTheme(preferences.getString("theme_list_preferences", "Dark"))
+        setApplicationTheme(preferences.getString("theme_list_preferences", "Light"))
+
     }
 
     private fun setApplicationTheme(string: String?) {
@@ -108,6 +105,21 @@ class MainActivity : AppCompatActivity() {
                 }
                 return true
             }
+            R.id.sort_by_text_amount -> {
+                val notes = mNoteViewModel.getAll.value
+                if (notes != null) noteAdapter.setData(mNoteSorter.sort(notes, NoteSorter.BY_TEXT_AMOUNT))
+                return true
+            }
+            R.id.sort_by_date -> {
+                val notes = mNoteViewModel.getAll.value
+                if (notes != null) noteAdapter.setData(mNoteSorter.sort(notes, NoteSorter.BY_DATE))
+                return true
+            }
+            R.id.no_sort -> {
+                val notes = mNoteViewModel.getAll.value
+                if (notes != null) noteAdapter.setData(notes)
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
 
         }
@@ -138,6 +150,7 @@ class MainActivity : AppCompatActivity() {
                 builder.create().show()
                 return true
             }
+
         }
         return super.onContextItemSelected(item)
     }
@@ -145,7 +158,7 @@ class MainActivity : AppCompatActivity() {
     private fun setNoteRecycler(){
         noteAdapter = NoteAdapter(this )
         mNoteViewModel.getAll.observe(this, Observer { notes ->
-            noteAdapter.setData(notes)
+            noteAdapter.setData(mNoteSorter.sort(notes, null))
             binding.noteAmountText.text = getString(R.string.note_amount_text) + " " + notes.count()
         })
 

@@ -2,18 +2,14 @@ package com.example.noteapplication
 
 import com.example.noteapplication.dock_instrument.ColorPickerFragment
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.text.Editable
 import android.text.Spanned
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -24,8 +20,8 @@ import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.noteapplication.databinding.ActivityNoteBinding
 import com.example.noteapplication.model.Note
-import com.example.noteapplication.tools.NoteDate
 import com.example.noteapplication.viewmodel.NoteViewModel
+import java.util.*
 
 
 //Страница чтения и редактирования заметки
@@ -111,7 +107,7 @@ class NoteActivity : AppCompatActivity() {
 
     private fun updateNote(noteId:Int?, title : Editable, text:Editable, backgroundColorId:Int, isFavourite:Int){
         if (noteId != null){
-            currentNote = Note(noteId, title.toString(), text.toString(), backgroundColorId, NoteDate().toString(), isFavourite)
+            currentNote = Note(noteId, title.toString(), text.toString(), backgroundColorId, Date(), isFavourite)
 
             if (mNoteViewModel.getById(noteId) == currentNote) return
 
@@ -120,7 +116,7 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun createNote(title : Editable, text:Editable, backgroundColorId:Int, isFavourite:Int){
-        currentNote = Note(0, title.toString(), text.toString(), backgroundColorId, NoteDate().toString(), isFavourite)
+        currentNote = Note(0, title.toString(), text.toString(), backgroundColorId, Date(), isFavourite)
         mNoteViewModel.add(currentNote!!)
     }
 

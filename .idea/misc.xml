@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../layout/custom_preview.xml" value="0.1" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable-night/ic_delete.xml" value="0.359" />
+        <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable-night/ic_sort.xml" value="0.211" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.255" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/card_item.xml" value="0.359" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/circle_shape.xml" value="0.4565" />
@@ -13,11 +14,15 @@
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_add.xml" value="0.255" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_arrow_back.xml" value="0.4035" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_arrow_forward.xml" value="0.5525" />
+        <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_baseline.xml" value="0.3725" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.255" />
+        <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_baseline_filter_alt_24.xml" value="0.3725" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_check.xml" value="0.2005" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_close.xml" value="0.5525" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_code.xml" value="0.5525" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_colorize.xml" value="0.255" />
+        <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_delete.xml" value="0.3725" />
+        <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_filter.xml" value="0.3725" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_format_size.xml" value="0.255" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.255" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/ic_notifications.xml" value="0.255" />
@@ -29,6 +34,7 @@
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/drawable/toggle_prefer.xml" value="0.4565" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/layout/activity_note.xml" value="0.5" />
+        <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/layout/activity_trash_box.xml" value="0.4041666666666667" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/layout/color_item.xml" value="0.389945652173913" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/layout/fragment_color_picker.xml" value="0.2246707193515704" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/layout/fragment_default_tools.xml" value="0.4466666666666667" />
@@ -40,8 +46,10 @@
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/layout/note_tools_content.xml" value="0.4375" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/layout/settings_activity.xml" value="0.4078125" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/menu/menu_main.xml" value="0.4466666666666667" />
+        <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/menu/menu_scrolling.xml" value="0.3578125" />
+        <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/menu/note_menu.xml" value="0.559375" />
         <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/menu/updater_menu.xml" value="0.4375" />
-        <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/xml/root_preferences.xml" value="0.4078125" />
+        <entry key="..\:/Users/Nikita/AndroidStudioProjects/NoteApplication/app/src/main/res/xml/root_preferences.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_note.xml" value="0.29824614348234957" />
         <entry key="app/src/main/res/layout/activity_scrolling.xml" value="0.221875" />

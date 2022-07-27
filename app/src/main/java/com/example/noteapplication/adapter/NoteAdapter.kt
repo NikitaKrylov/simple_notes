@@ -19,6 +19,7 @@ import com.example.noteapplication.MainActivity
 import com.example.noteapplication.NoteActivity
 import com.example.noteapplication.R
 import com.example.noteapplication.model.Note
+import java.text.SimpleDateFormat
 import kotlin.coroutines.coroutineContext
 
 class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
@@ -37,11 +38,10 @@ class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
         val note =  notes[position]
 
         holder.text.maxLines = preferences.getInt("max_note_card_line_preferences", R.integer.default_max_note_card_line_count)
-        //Log.d(MainActivity.LOG_TAG, preferences.getInt("max_note_card_line_preferences", 0).toString())
 
         holder.title.text = NoteActivity.fromHtml(note.title)
         holder.text.text = NoteActivity.fromHtml(note.text)
-        holder.date.text = NoteActivity.fromHtml(note.creationDatetime )
+        holder.date.text = SimpleDateFormat("MMM d, HH:mm").format(note.creationDate)
         holder.favouriteMark.visibility = when (note.isFavourite) {1 -> ImageView.VISIBLE else -> ImageView.INVISIBLE}
 
 

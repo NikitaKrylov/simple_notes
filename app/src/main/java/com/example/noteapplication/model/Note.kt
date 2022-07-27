@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import java.util.*
 
 
 @Parcelize
@@ -15,7 +16,7 @@ data class Note(
     val title:String,
     val text:String,
     val backgroundColorId:Int,
-    val creationDatetime:String,
+    val creationDate:Date,
     val isFavourite: Int = 0
 
 ): Parcelable

@@ -9,15 +9,34 @@
         />
 
     <item
+        android:id="@+id/sorter"
+        android:title="Filter"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_sort"
+
+        >
+        <menu>
+            <item
+                android:id="@+id/no_sort"
+                android:title="No sort"/>
+            <item
+                android:id="@+id/sort_by_date"
+                android:title="Date"/>
+            <item
+                android:id="@+id/sort_by_text_amount"
+                android:title="Text amount"/>
+        </menu>
+    </item>
+
+    <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         android:title="@string/settings"
-        app:showAsAction="never"
-        android:icon="@drawable/ic_settings_applications" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_trashbox"
+        android:orderInCategory="2"
         android:title="@string/trashbox"
-        app:showAsAction="never"
-        android:icon="@drawable/ic_delete"/>
+        app:showAsAction="never" />
 
 </menu>

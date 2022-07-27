@@ -32,6 +32,7 @@
     <string name="requires_application_restart">Requires application restart</string>
     <string name="note_amount_text">There are notes:</string>
     <string name="trash_note_amount_text">Notes in bin:</string>
+    <string name="not_implemented">Not implemented</string>
     <string name="large_text" translatable="false">
         "Material is the metaphor.\n\n"
 

@@ -20,6 +20,11 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        useDarkTheme(preferences.getBoolean("useDarkTheme", false))
+        setLocalization(preferences.getString("localization_preference", "en"))
+
         setContentView(R.layout.settings_activity)
         if (savedInstanceState == null) {
             supportFragmentManager
@@ -29,10 +34,7 @@ class SettingsActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = resources.getString(R.string.settings)
-        preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 
-        useDarkTheme(preferences.getBoolean("useDarkTheme", false))
-        setLocalization(preferences.getString("localization_preference", "en"))
     }
 
 
@@ -62,8 +64,10 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             val setThemePreference = findPreference<ListPreference>("theme_list_preferences")
+
             setThemePreference?.onPreferenceChangeListener =
-                Preference.OnPreferenceChangeListener { _, _ ->
+                Preference.OnPreferenceChangeListener { _, newValue ->
+
                     activity?.finish()
                     true
                 }
