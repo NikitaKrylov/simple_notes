@@ -17,6 +17,6 @@ data class Note(
     val text:String,
     val backgroundColorId:Int,
     val creationDate:Date,
-    val isFavourite: Int = 0
+    var isFavourite:  Boolean = false
 
 ): Parcelable

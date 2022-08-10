@@ -18,25 +18,16 @@
         <menu>
             <item
                 android:id="@+id/no_sort"
-                android:title="No sort"/>
+                android:title="@string/no_sort"/>
             <item
                 android:id="@+id/sort_by_date"
-                android:title="Date"/>
+                android:title="@string/date"/>
             <item
                 android:id="@+id/sort_by_text_amount"
-                android:title="Text amount"/>
+                android:title="@string/text_amount"/>
         </menu>
     </item>
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="1"
-        android:title="@string/settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_trashbox"
-        android:orderInCategory="2"
-        android:title="@string/trashbox"
-        app:showAsAction="never" />
+
 
 </menu>

@@ -14,7 +14,7 @@ class DateTimeConverter {
 
     @TypeConverter
     fun fromDate(date: Date): Long{
-        return Date().time
+        return date.time
     }
 
 }

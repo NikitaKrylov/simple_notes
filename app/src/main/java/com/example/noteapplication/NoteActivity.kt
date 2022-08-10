@@ -4,12 +4,14 @@ import com.example.noteapplication.dock_instrument.ColorPickerFragment
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.Spanned
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,6 +24,7 @@ import com.example.noteapplication.databinding.ActivityNoteBinding
 import com.example.noteapplication.model.Note
 import com.example.noteapplication.viewmodel.NoteViewModel
 import java.util.*
+import kotlin.properties.Delegates
 
 
 //Страница чтения и редактирования заметки
@@ -35,6 +38,7 @@ class NoteActivity : AppCompatActivity() {
     private lateinit var backgroundSurface : View
     private var currentNote : Note ?= null
     private lateinit var binding:ActivityNoteBinding
+    private var destroyWithoutSaving = false
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,6 +76,8 @@ class NoteActivity : AppCompatActivity() {
         }
     }
 
+
+
     //Set up data into fields
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setDataToView(note:Note){
@@ -80,22 +86,24 @@ class NoteActivity : AppCompatActivity() {
         textInput.setText(fromHtml(note.text))
         backgroundSurface.setBackgroundColor(getColor(note.backgroundColorId))
         supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(note.backgroundColorId)))
-        binding.isFavouriteCheckBox.isChecked = when (note.isFavourite){1 -> true else -> false }
+        binding.isFavouriteCheckBox.isChecked = note.isFavourite
     }
 
     //Main save note function
     private fun saveNote(){
         val title = titleInput.text
         val text = textInput.text
-        val isFavourite : Int = when (binding.isFavouriteCheckBox.isChecked) { true -> 1 else -> 0}
+        val isFavourite : Boolean = binding.isFavouriteCheckBox.isChecked
 
         var backgroundColorId : Int =  R.color.default_note_background
         if (ColorPickerFragment.backgroundColorId != null)
             backgroundColorId = ColorPickerFragment.backgroundColorId!!
 
-        if (title.isEmpty() && text.isEmpty()) return
-
-        if (IS_SAVE_MOD){
+        if (title.isEmpty() && text.isEmpty()) {
+            currentNote?.let { mNoteViewModel.delete(it) }
+            Toast.makeText(applicationContext, "Deleted successfully", Toast.LENGTH_SHORT)
+        }
+        else if (IS_SAVE_MOD){
             updateNote(NOTE_ID, title, text, backgroundColorId, isFavourite)
         }
         else{
@@ -105,17 +113,16 @@ class NoteActivity : AppCompatActivity() {
     }
 
 
-    private fun updateNote(noteId:Int?, title : Editable, text:Editable, backgroundColorId:Int, isFavourite:Int){
+    private fun updateNote(noteId:Int?, title : Editable, text:Editable, backgroundColorId:Int, isFavourite:Boolean){
         if (noteId != null){
-            currentNote = Note(noteId, title.toString(), text.toString(), backgroundColorId, Date(), isFavourite)
-
-            if (mNoteViewModel.getById(noteId) == currentNote) return
-
+            currentNote = currentNote?.creationDate?.let {
+                Note(noteId, title.toString(), text.toString(), backgroundColorId, it, isFavourite)
+            }
             mNoteViewModel.update(currentNote!!)
         }
     }
 
-    private fun createNote(title : Editable, text:Editable, backgroundColorId:Int, isFavourite:Int){
+    private fun createNote(title : Editable, text:Editable, backgroundColorId:Int, isFavourite:Boolean){
         currentNote = Note(0, title.toString(), text.toString(), backgroundColorId, Date(), isFavourite)
         mNoteViewModel.add(currentNote!!)
     }
@@ -134,6 +141,7 @@ class NoteActivity : AppCompatActivity() {
             setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->
                 if (IS_SAVE_MOD) deleteNote(mNoteViewModel.getById(NOTE_ID!!))
                 else
+                    destroyWithoutSaving = true
                     finish()
                     overridePendingTransition(R.anim.no_animation, R.anim.slide_to_bottom)
             })
@@ -169,10 +177,13 @@ class NoteActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onPause() {
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (destroyWithoutSaving) return
         saveNote()
-        super.onPause()
     }
+
 
     companion object {
         fun setNavigationBarColor(activity: Activity, color:Int) {

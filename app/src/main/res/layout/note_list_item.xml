@@ -22,12 +22,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="7dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="4dp"
                 >
 
                 <TextView
@@ -36,14 +36,14 @@
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="10dp"
                     android:text="Title"
-                    android:textStyle="bold"
                     android:textSize="17sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/isFavouriteMark"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    />
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <ImageView
                     android:id="@+id/isFavouriteMark"
@@ -53,7 +53,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/note_card_date"
                     app:layout_constraintEnd_toStartOf="@+id/note_card_date"
                     app:layout_constraintTop_toTopOf="@+id/note_card_date"
-                    android:visibility="invisible"/>
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/note_card_date"
@@ -66,7 +66,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.333" />
+                    app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -78,8 +78,8 @@
                 android:layout_height="wrap_content"
                 android:text="some text"
                 android:background="@android:color/transparent"
-                android:paddingVertical="7dp"
                 android:paddingHorizontal="10dp"
+                android:paddingTop="5dp"
                 />
 
         </LinearLayout>

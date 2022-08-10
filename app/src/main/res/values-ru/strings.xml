@@ -9,6 +9,7 @@
 
     <string name="deleteBtn">Удалить</string>
     <string name="shareBtn">Поделиться</string>
+    <string name="fixBtn">Закрепить</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
@@ -18,6 +19,11 @@
     <string name="localization_header">Язык</string>
     <string name="max_note_card_line_header">Кол-во строк в карточке заметки</string>
 
+
+    <!--  Menu titles  -->
+    <string name="no_sort">Без сортировки</string>
+    <string name="date">Дата</string>
+    <string name="text_amount">Кол-во текста</string>
 
     <!--  Activity Titles  -->
     <string name="main_activity_title">Заметки</string>
@@ -36,5 +42,6 @@
     <string name="note_amount_text">Всего заметок:</string>
     <string name="trash_note_amount_text">Заметок в корзине:</string>
     <string name="not_implemented">Не реализовано</string>
+
 
 </resources>

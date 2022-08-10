@@ -6,7 +6,8 @@
         <item name="colorPrimary">@color/Jet</item>
         <item name="colorPrimaryVariant">@color/Jet</item>
 
-        <item name="colorSecondary">@color/ash_teal300</item>
+        <item name="colorSecondary">#67b99a</item>
+<!--        <item name="colorSecondary">@color/ash_teal300</item>-->
 
         <item name="android:colorBackground">@color/DarkSlateGray</item>
         <item name="android:textColorPrimary">@color/default_note_font_color</item>
@@ -18,7 +19,6 @@
         <item name="colorSurface">@color/Jet</item>
         <item name="android:statusBarColor">#202121</item>
         <item name="android:navigationBarColor">@color/DarkSlateGray</item>
-
 
     </style>
 
