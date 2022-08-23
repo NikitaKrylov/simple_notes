@@ -2,12 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.NoteApplication" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-<!--        <item name="colorPrimary">@color/Jet</item>-->
         <item name="colorPrimary">@color/Jet</item>
         <item name="colorPrimaryVariant">@color/Jet</item>
-
         <item name="colorSecondary">#67b99a</item>
-<!--        <item name="colorSecondary">@color/ash_teal300</item>-->
 
         <item name="android:colorBackground">@color/DarkSlateGray</item>
         <item name="android:textColorPrimary">@color/default_note_font_color</item>

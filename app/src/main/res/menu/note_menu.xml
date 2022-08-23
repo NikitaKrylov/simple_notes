@@ -3,17 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.notewriteractivity.MainActivity">
 
-
     <item
-        android:id="@+id/delete_menu_btn"
-        android:title="@string/deleteBtn"
+        android:id="@+id/add_to_calendar"
+        android:title="To calendar"
         app:showAsAction="always"
-        android:icon="@drawable/ic_delete"
+        android:icon="@drawable/ic_notifications"
         />
+
     <item
         android:id="@+id/share_note_btn"
         android:title="Share"
         app:showAsAction="always"
         android:icon="@drawable/ic_share"
+        />
+    <item
+        android:id="@+id/delete_menu_btn"
+        android:title="@string/deleteBtn"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_delete"
         />
 </menu>

@@ -28,6 +28,7 @@ class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
 
     private var notes = emptyList<Note>()
     private var preferences : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private var position: Int = 0;
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -65,21 +66,29 @@ class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
             startActivity(context, intent, null )
 
         }
+        holder.cardItem.setOnLongClickListener {
+            setPosition(position)
+            false
+        }
 
 
 
     }
 
-    fun getNoteId(groupId: Int): Int{
-        return notes[groupId].id
-    }
-    fun getNote(groupId: Int): Note{
-        return notes[groupId]
+    fun getNote(position: Int = this.position): Note{
+        return notes[position]
     }
 
     override fun getItemCount(): Int {
         return notes.size
     }
+    fun setPosition(position: Int){
+        this.position = position
+    }
+    fun getPosition(): Int {
+        return position
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     class NoteViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView), View.OnCreateContextMenuListener{
@@ -91,6 +100,7 @@ class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
 
         init {
             cardItem.setOnCreateContextMenuListener(this)
+
         }
 
         override fun onCreateContextMenu(menu: ContextMenu?, p1: View?, p2: ContextMenu.ContextMenuInfo?)
@@ -98,7 +108,6 @@ class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
             (context as Activity).menuInflater.inflate(R.menu.note_card_context_menu, menu)
             MenuCompat.setGroupDividerEnabled(menu, true)
         }
-
 
     }
 

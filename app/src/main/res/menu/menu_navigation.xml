@@ -5,13 +5,25 @@
 
     <group>
         <item
-            android:id="@+id/action_settings"
-            android:title="@string/settings"
-            android:icon="@drawable/ic_settings"/>
+            android:id="@+id/action_reminders"
+            android:title="@string/reminders"
+            android:icon="@drawable/ic_notifications"/>
+
         <item
             android:id="@+id/action_trashbox"
             android:title="@string/trashbox"
             android:icon="@drawable/ic_delete"/>
+
+        <item
+            android:id="@+id/action_settings"
+            android:title="@string/settings"
+            android:icon="@drawable/ic_settings"/>
+
+        <item
+            android:id="@+id/action_information"
+            android:title="@string/about_app"
+            android:icon="@drawable/ic_info"
+            />
     </group>
 
 </menu>

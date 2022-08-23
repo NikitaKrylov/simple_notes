@@ -4,7 +4,10 @@
 
 
 
-    <PreferenceCategory app:title="@string/application_header" app:icon="@drawable/ic_settings_applications">
+    <PreferenceCategory
+        app:title="@string/application_header"
+        app:icon="@drawable/ic_settings">
+
         <SwitchPreferenceCompat
             app:key="showNoteWriterPage"
             app:title="Show note writer page"

@@ -29,6 +29,9 @@
     <string name="main_activity_title">Заметки</string>
     <string name="settings">Настройки</string>
     <string name="trashbox">Корзина</string>
+    <string name="reminders">Напоминания</string>
+    <string name="about_app">О приложении</string>
+
 
 
     <string name="title_hint">Заголовок</string>

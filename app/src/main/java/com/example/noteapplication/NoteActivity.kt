@@ -4,7 +4,6 @@ import com.example.noteapplication.dock_instrument.ColorPickerFragment
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +23,6 @@ import com.example.noteapplication.databinding.ActivityNoteBinding
 import com.example.noteapplication.model.Note
 import com.example.noteapplication.viewmodel.NoteViewModel
 import java.util.*
-import kotlin.properties.Delegates
 
 
 //Страница чтения и редактирования заметки
@@ -151,6 +149,10 @@ class NoteActivity : AppCompatActivity() {
         builder.create().show()
     }
 
+    private fun createCalendarDialog(title:String, body:String){
+        Toast.makeText(this, getString(R.string.not_implemented), Toast.LENGTH_LONG).show()
+    }
+
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -172,6 +174,10 @@ class NoteActivity : AppCompatActivity() {
                     type = "text/plain"
                 }
                 startActivity(intent)
+            }
+            R.id.add_to_calendar -> {
+                if (titleInput.text.isEmpty()) return true
+                createCalendarDialog(titleInput.text.toString(), textInput.text.toString())
             }
         }
         return super.onOptionsItemSelected(item)
