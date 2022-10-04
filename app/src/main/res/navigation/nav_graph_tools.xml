@@ -20,31 +20,7 @@
         android:label="DefaultToolsFragment"
         tools:layout="@layout/fragment_default_tools">
         <action
-            android:id="@+id/action_defaultToolsFragment_to_fontPickerFragment"
-            app:destination="@id/fontPickerFragment" />
-        <action
             android:id="@+id/action_defaultToolsFragment_to_colorPickerFragment"
             app:destination="@id/colorPickerFragment" />
-        <action
-            android:id="@+id/action_defaultToolsFragment_to_htmlTagEditorFragment"
-            app:destination="@id/htmlTagEditorFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/fontPickerFragment"
-        android:name="FontPickerFragment"
-        android:label="FontPickerFragment"
-        tools:layout="@layout/fragment_font_picker">
-        <action
-            android:id="@+id/action_fontPickerFragment_to_defaultToolsFragment"
-            app:destination="@id/defaultToolsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/htmlTagEditorFragment"
-        android:name="com.example.noteapplication.dock_instrument.HtmlTagEditorFragment"
-        android:label="fragment_html_tag_editor"
-        tools:layout="@layout/fragment_html_tag_editor" >
-        <action
-            android:id="@+id/action_htmlTagEditorFragment_to_defaultToolsFragment"
-            app:destination="@id/defaultToolsFragment" />
     </fragment>
 </navigation>

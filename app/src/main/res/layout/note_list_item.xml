@@ -17,6 +17,7 @@
         android:layout_marginHorizontal="25dp"
         android:background="@drawable/card_item"
         app:cardElevation="4dp"
+        android:hapticFeedbackEnabled="true"
         >
 
         <LinearLayout

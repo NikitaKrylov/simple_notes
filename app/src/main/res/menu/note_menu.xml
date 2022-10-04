@@ -9,6 +9,11 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_notifications"
         />
+    <item
+        android:id="@+id/page_color"
+        android:title="PageColor"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_colorize"/>
 
     <item
         android:id="@+id/share_note_btn"
@@ -22,4 +27,5 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_delete"
         />
+
 </menu>

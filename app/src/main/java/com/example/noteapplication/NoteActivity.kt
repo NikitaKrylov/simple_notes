@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.Spanned
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -80,6 +79,7 @@ class NoteActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun setDataToView(note:Note){
         ColorPickerFragment.setBackgroundColor(this, note.backgroundColorId)
+
         titleInput.setText(fromHtml(note.title))
         textInput.setText(fromHtml(note.text))
         backgroundSurface.setBackgroundColor(getColor(note.backgroundColorId))
@@ -178,6 +178,9 @@ class NoteActivity : AppCompatActivity() {
             R.id.add_to_calendar -> {
                 if (titleInput.text.isEmpty()) return true
                 createCalendarDialog(titleInput.text.toString(), textInput.text.toString())
+            }
+            R.id.page_color -> {
+                Toast.makeText(this, "not implemented", Toast.LENGTH_LONG).show()
             }
         }
         return super.onOptionsItemSelected(item)

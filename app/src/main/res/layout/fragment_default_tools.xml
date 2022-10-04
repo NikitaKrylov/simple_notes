@@ -35,54 +35,7 @@
 
 
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                app:cardCornerRadius="4dp">
 
-                <ImageButton
-                    android:id="@+id/show_font_picker_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/colorSecondary"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_font_download" />
-
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                app:cardCornerRadius="4dp">
-
-                <ImageButton
-                    android:id="@+id/text_size_format_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/colorSecondary"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_format_size" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                app:cardCornerRadius="4dp">
-
-                <ImageButton
-                    android:id="@+id/html_tag_editor_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/colorSecondary"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_code" />
-
-            </androidx.cardview.widget.CardView>
 
 
         </LinearLayout>

@@ -3,6 +3,7 @@ package com.example.noteapplication
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -13,9 +14,11 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapplication.adapter.NoteAdapter
@@ -23,6 +26,7 @@ import com.example.noteapplication.databinding.ActivityMainBinding
 import com.example.noteapplication.model.Note
 import com.example.noteapplication.tools.NoteSorter
 import com.example.noteapplication.viewmodel.NoteViewModel
+import com.example.noteapplication.viewmodel.SortType
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
@@ -109,19 +113,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         item.isChecked = item.isChecked
 
         return when (item.itemId) {
-            R.id.sort_by_text_amount -> {
-                val notes = mNoteViewModel.getAll.value
-                if (notes != null) noteAdapter.setData(mNoteSorter.sort(notes, NoteSorter.BY_TEXT_AMOUNT))
+            R.id.order_by_date -> {
+                noteAdapter.setData(mNoteViewModel.sort(SortType.ByDate))
                 return true
             }
-            R.id.sort_by_date -> {
-                val notes = mNoteViewModel.getAll.value
-                if (notes != null) noteAdapter.setData(mNoteSorter.sort(notes, NoteSorter.BY_DATE))
+
+            R.id.order_by_is_favourite -> {
+                noteAdapter.setData(mNoteViewModel.sort(SortType.IsFavourite))
                 return true
             }
-            R.id.no_sort -> {
-                val notes = mNoteViewModel.getAll.value
-                if (notes != null) noteAdapter.setData(notes)
+            R.id.order_by_text_amount ->{
+                noteAdapter.setData(mNoteViewModel.sort(SortType.TextAmount))
+                return true
+            }
+            R.id.order_direction -> {
+                mNoteViewModel.isAscSort = !mNoteViewModel.isAscSort
+                if (mNoteViewModel.isAscSort) item.icon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_upward)
+                else  item.icon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_downward)
+                noteAdapter.setData(mNoteViewModel.sort())
+
                 return true
             }
 
@@ -158,8 +168,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 return true
             }
             R.id.isFavouriteCheckBox -> {
-
-
                 val note = noteAdapter.getNote()
                 note.isFavourite = !note.isFavourite
                 mNoteViewModel.update(note)
@@ -176,14 +184,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun setNoteRecycler(){
         noteAdapter = NoteAdapter(this )
         mNoteViewModel.getAll.observe(this, Observer { notes ->
-            noteAdapter.setData(mNoteSorter.sort(notes, null))
+            noteAdapter.setData(mNoteViewModel.sort())
             binding.noteAmountText.text = getString(R.string.note_amount_text) + " " + notes.count()
         })
 
         val recyclerNote = findViewById<RecyclerView>(R.id.noteRecycler)
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(applicationContext, 2, GridLayoutManager.VERTICAL, false)
+            recyclerNote.layoutManager = layoutManager
+        }
+        else{
+            val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+            recyclerNote.layoutManager = layoutManager
+        }
 
-        recyclerNote.layoutManager = layoutManager
         recyclerNote.adapter = noteAdapter
     }
 

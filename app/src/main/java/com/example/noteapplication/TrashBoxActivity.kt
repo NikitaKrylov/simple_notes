@@ -28,9 +28,5 @@ class TrashBoxActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-    
 
-    companion object {
-        const val ACTION_UPDATE_TRASH_BOX = "com.noteapplication.action.UPDATE_TRASH_BOX"
-    }
 }

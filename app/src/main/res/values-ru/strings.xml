@@ -21,7 +21,7 @@
 
 
     <!--  Menu titles  -->
-    <string name="no_sort">Без сортировки</string>
+    <string name="is_favourite">Закрепленные</string>
     <string name="date">Дата</string>
     <string name="text_amount">Кол-во текста</string>
 

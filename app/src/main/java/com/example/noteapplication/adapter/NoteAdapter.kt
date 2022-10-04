@@ -68,10 +68,9 @@ class NoteAdapter(var context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
         }
         holder.cardItem.setOnLongClickListener {
             setPosition(position)
+            it.performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
             false
         }
-
-
 
     }
 

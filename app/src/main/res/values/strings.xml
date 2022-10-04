@@ -19,7 +19,7 @@
 
     <!--  Menu titles  -->
     <string name="text_amount">Text amount</string>
-    <string name="no_sort">No sort</string>
+    <string name="is_favourite">Is favourite</string>
     <string name="date">Date</string>
 
     <!--  Activity Titles  -->
