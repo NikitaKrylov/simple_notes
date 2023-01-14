@@ -1,22 +1,16 @@
 package com.example.noteapplication
 
-import com.example.noteapplication.dock_instrument.ColorPickerFragment
-import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.Spanned
+import android.provider.CalendarContract
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.text.HtmlCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.noteapplication.databinding.ActivityNoteBinding
 import com.example.noteapplication.model.Note
@@ -31,13 +25,11 @@ class NoteActivity : AppCompatActivity() {
     private lateinit var titleInput : EditText
     private lateinit var textInput : EditText
     private var IS_SAVE_MOD : Boolean = false
-    private var NOTE_ID : Int ?= null
     private lateinit var backgroundSurface : View
     private var currentNote : Note ?= null
     private lateinit var binding:ActivityNoteBinding
     private var destroyWithoutSaving = false
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNoteBinding.inflate(layoutInflater)
@@ -49,6 +41,7 @@ class NoteActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
 
 //      Views
@@ -56,103 +49,80 @@ class NoteActivity : AppCompatActivity() {
         textInput = findViewById(R.id.noteText)
         backgroundSurface = findViewById(R.id.note_background)
 
+
+
         val arguments = intent.extras
         if (arguments != null) {
             IS_SAVE_MOD = arguments.getBoolean("IS_SAVE_MOD")
             if (IS_SAVE_MOD) {
-                NOTE_ID = arguments.getInt("NOTE_ID")
-                currentNote = mNoteViewModel.getById(NOTE_ID!!)
+                currentNote = arguments.getInt("NOTE_ID").let { mNoteViewModel.getById(it) } ?: null
                 setDataToView(currentNote!!)
             }
         } else {
-            backgroundSurface.setBackgroundColor(getColor(R.color.default_note_background))
-            supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(R.color.default_note_background)))
-            setNavigationBarColor(this, getColor(R.color.default_note_background))
-            window.statusBarColor = getColor(R.color.default_note_background)
-
+            setBackgroundColor(getColor(R.color.default_note_background))
         }
+
     }
 
 
-
-    //Set up data into fields
-    @RequiresApi(Build.VERSION_CODES.M)
     private fun setDataToView(note:Note){
-        ColorPickerFragment.setBackgroundColor(this, note.backgroundColorId)
-
-        titleInput.setText(fromHtml(note.title))
-        textInput.setText(fromHtml(note.text))
-        backgroundSurface.setBackgroundColor(getColor(note.backgroundColorId))
-        supportActionBar?.setBackgroundDrawable(ColorDrawable(getColor(note.backgroundColorId)))
+        titleInput.setText(note.title)
+        textInput.setText(note.text)
         binding.isFavouriteCheckBox.isChecked = note.isFavourite
+        setBackgroundColor(getColor(note.backgroundColorId))
     }
 
-    //Main save note function
-    private fun saveNote(){
-        val title = titleInput.text
-        val text = textInput.text
-        val isFavourite : Boolean = binding.isFavouriteCheckBox.isChecked
+    private fun setBackgroundColor(color: Int){
+        backgroundSurface.setBackgroundColor(color)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(color))
+        window.statusBarColor = color
+        window.navigationBarColor = color
+    }
 
-        var backgroundColorId : Int =  R.color.default_note_background
-        if (ColorPickerFragment.backgroundColorId != null)
-            backgroundColorId = ColorPickerFragment.backgroundColorId!!
-
-        if (title.isEmpty() && text.isEmpty()) {
-            currentNote?.let { mNoteViewModel.delete(it) }
-            Toast.makeText(applicationContext, "Deleted successfully", Toast.LENGTH_SHORT)
-        }
-        else if (IS_SAVE_MOD){
-            updateNote(NOTE_ID, title, text, backgroundColorId, isFavourite)
+    private fun updateNote(id: Int, title: String, text: String, color: Int, date: Date, isFavourite: Boolean){
+        if (titleInput.text.isEmpty() && textInput.text.isEmpty()) {
+            currentNote?.let {
+                mNoteViewModel.delete(it)
+                Toast.makeText(applicationContext, "Deleted successfully", Toast.LENGTH_SHORT).show()
+            }
         }
         else{
-            createNote(title, text, backgroundColorId, isFavourite)
-        }
-        ColorPickerFragment.backgroundColorId = null
-    }
-
-
-    private fun updateNote(noteId:Int?, title : Editable, text:Editable, backgroundColorId:Int, isFavourite:Boolean){
-        if (noteId != null){
-            currentNote = currentNote?.creationDate?.let {
-                Note(noteId, title.toString(), text.toString(), backgroundColorId, it, isFavourite)
-            }
-            mNoteViewModel.update(currentNote!!)
+            mNoteViewModel.update(Note(id, title, text, color, date, isFavourite))
         }
     }
 
-    private fun createNote(title : Editable, text:Editable, backgroundColorId:Int, isFavourite:Boolean){
-        currentNote = Note(0, title.toString(), text.toString(), backgroundColorId, Date(), isFavourite)
-        mNoteViewModel.add(currentNote!!)
+    private fun createNote(title: String, text: String, color: Int, isFavourite: Boolean){
+        if (title.isNotEmpty() || text.isNotEmpty()) {
+            currentNote = Note(0, title, text, color, Date(), isFavourite)
+            currentNote?.let{ mNoteViewModel.add(it) }
+        }
+
     }
 
     private fun deleteNote(note: Note){
         mNoteViewModel.delete(note)
-        Toast.makeText(applicationContext, "Deleted successfully", Toast.LENGTH_SHORT)
-        finish()
-        overridePendingTransition(R.anim.slide_to_bottom, R.anim.no_animation)
+        Toast.makeText(this, "Deleted successfully", Toast.LENGTH_SHORT)
     }
 
     private fun createDeleteDialog(){
         val builder = androidx.appcompat.app.AlertDialog.Builder(this, R.style.Widget_Dialog_Alert)
         builder.apply {
             setMessage(resources.getString(R.string.delete_question))
-            setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->
-                if (IS_SAVE_MOD) deleteNote(mNoteViewModel.getById(NOTE_ID!!))
+            setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->  dialogInterface.cancel()})
+            setPositiveButton("Delete", DialogInterface.OnClickListener { _, _ ->
+                if (IS_SAVE_MOD) {
+                    currentNote?.let{ mNoteViewModel.delete(it) }
+                    finish()
+                    overridePendingTransition(R.anim.slide_to_bottom, R.anim.no_animation)
+                }
                 else
-                    destroyWithoutSaving = true
                     finish()
                     overridePendingTransition(R.anim.no_animation, R.anim.slide_to_bottom)
             })
-            setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->  dialogInterface.cancel()})
 
         }
         builder.create().show()
     }
-
-    private fun createCalendarDialog(title:String, body:String){
-        Toast.makeText(this, getString(R.string.not_implemented), Toast.LENGTH_LONG).show()
-    }
-
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -176,12 +146,28 @@ class NoteActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             R.id.add_to_calendar -> {
-                if (titleInput.text.isEmpty()) return true
-                createCalendarDialog(titleInput.text.toString(), textInput.text.toString())
+                if (titleInput.text.isEmpty() && textInput.text.isEmpty()) {
+                    Toast.makeText(this, "111", Toast.LENGTH_LONG).show()
+                    return true
+                }
+                val intent = Intent(Intent.ACTION_EDIT).apply {
+                    type = "vnd.android.cursor.item/event"
+                    data = CalendarContract.Events.CONTENT_URI
+                    if (titleInput.text.isNotEmpty()){
+                        putExtra(CalendarContract.Events.TITLE, titleInput.text.toString())
+                    }
+                    if (textInput.text.isNotEmpty()){
+                        putExtra(CalendarContract.Events.DESCRIPTION, textInput.text.toString())
+                    }
+                    putExtra(CalendarContract.Events.CALENDAR_COLOR, if (currentNote == null) currentNote?.backgroundColorId else R.color.default_note_background )
+                }
+                startActivity(intent)
+
             }
             R.id.page_color -> {
                 Toast.makeText(this, "not implemented", Toast.LENGTH_LONG).show()
             }
+
         }
         return super.onOptionsItemSelected(item)
     }
@@ -189,20 +175,26 @@ class NoteActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (destroyWithoutSaving) return
-        saveNote()
-    }
-
-
-    companion object {
-        fun setNavigationBarColor(activity: Activity, color:Int) {
-            activity.window.navigationBarColor = color
+        if (IS_SAVE_MOD){
+            currentNote?.apply {
+                updateNote(
+                    id,
+                    titleInput.text.toString(),
+                    textInput.text.toString(),
+                    R.color.default_note_background,
+                    creationDate,
+                    binding.isFavouriteCheckBox.isChecked
+                )
+            }
         }
-        fun fromHtml(string:String) : Spanned{
-            return HtmlCompat.fromHtml(string, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        else{
+            createNote(
+                titleInput.text.toString(),
+                textInput.text.toString(),
+                R.color.default_note_background,
+                binding.isFavouriteCheckBox.isChecked
+            )
         }
-
     }
-
 
 }

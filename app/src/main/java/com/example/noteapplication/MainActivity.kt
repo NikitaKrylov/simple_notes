@@ -1,14 +1,11 @@
 package com.example.noteapplication
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.AdapterView.AdapterContextMenuInfo
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -24,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapplication.adapter.NoteAdapter
 import com.example.noteapplication.databinding.ActivityMainBinding
 import com.example.noteapplication.model.Note
-import com.example.noteapplication.tools.NoteSorter
 import com.example.noteapplication.viewmodel.NoteViewModel
 import com.example.noteapplication.viewmodel.SortType
 import com.google.android.material.navigation.NavigationView
@@ -38,7 +34,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var noteAdapter : NoteAdapter
     private lateinit var mNoteViewModel : NoteViewModel
     private lateinit var preferences : SharedPreferences
-    private var mNoteSorter = NoteSorter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,12 +50,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(binding.toolbar)
         supportActionBar?.title = resources.getString(R.string.main_activity_title)
 
-        val toggle = ActionBarDrawerToggle(this, binding.navigationDrawer, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        binding.navigationDrawer.addDrawerListener(toggle)
-        toggle.isDrawerIndicatorEnabled = true
-        toggle.syncState()
+        ActionBarDrawerToggle(this, binding.navigationDrawer, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close).also {
+            binding.navigationDrawer.addDrawerListener(it)
+            it.isDrawerIndicatorEnabled = true
+            it.syncState()
+        }
 
-        binding.fab.setOnClickListener { _ ->
+        binding.fab.setOnClickListener {
             intent = Intent(applicationContext, NoteActivity::class.java)
             startActivity(intent)
         }
@@ -72,7 +68,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onResume() {
         super.onResume()
         setApplicationTheme(preferences.getString("theme_list_preferences", "Light"))
-
     }
 
     private fun setApplicationTheme(string: String?) {
@@ -87,9 +82,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         menuInflater.inflate(R.menu.menu_main, menu)
         val searchItem = menu.findItem(R.id.search).actionView as SearchView
         searchItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(string: String?): Boolean {
-                return true
-            }
+            override fun onQueryTextSubmit(string: String?): Boolean = true
 
             override fun onQueryTextChange(string: String?): Boolean {
                 if (string.isNullOrEmpty()){
@@ -112,32 +105,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         item.isChecked = item.isChecked
 
-        return when (item.itemId) {
-            R.id.order_by_date -> {
-                noteAdapter.setData(mNoteViewModel.sort(SortType.ByDate))
-                return true
-            }
+        when (item.itemId) {
+            R.id.order_by_date -> noteAdapter.setData(mNoteViewModel.sort(SortType.ByDate))
 
-            R.id.order_by_is_favourite -> {
-                noteAdapter.setData(mNoteViewModel.sort(SortType.IsFavourite))
-                return true
-            }
-            R.id.order_by_text_amount ->{
-                noteAdapter.setData(mNoteViewModel.sort(SortType.TextAmount))
-                return true
-            }
+            R.id.order_by_is_favourite -> noteAdapter.setData(mNoteViewModel.sort(SortType.IsFavourite))
+
+            R.id.order_by_text_amount -> noteAdapter.setData(mNoteViewModel.sort(SortType.TextAmount))
+
             R.id.order_direction -> {
                 mNoteViewModel.isAscSort = !mNoteViewModel.isAscSort
                 if (mNoteViewModel.isAscSort) item.icon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_upward)
                 else  item.icon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_downward)
                 noteAdapter.setData(mNoteViewModel.sort())
-
-                return true
             }
-
-            else -> super.onOptionsItemSelected(item)
-
         }
+        return true
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
@@ -146,8 +128,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.share_note_btn -> {
                 intent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    val currentNote = noteAdapter.getNote(noteAdapter.getPosition())
-                    putExtra(Intent.EXTRA_TEXT, currentNote.title + "\n" + currentNote.text)
+                    noteAdapter.getNote(noteAdapter.getPosition()).also {
+                        putExtra(Intent.EXTRA_TEXT, it.title + "\n" + it.text)
+                    }
                     type = "text/plain"
                 }
                 startActivity(intent)
@@ -157,20 +140,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val builder = androidx.appcompat.app.AlertDialog.Builder(this)
                 builder.apply {
                     setMessage(resources.getString(R.string.delete_question))
-                    setPositiveButton("Ok", DialogInterface.OnClickListener { _, _ ->
+                    setPositiveButton("Ok") { _, _ ->
                         mNoteViewModel.delete(noteAdapter.getNote(noteAdapter.getPosition()))
                         Snackbar.make(binding.fab, "Deleted successfully", Snackbar.LENGTH_LONG).show()
-                    })
-                    setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface, _ ->  dialogInterface.cancel()})
+                    }
+                    setNegativeButton("Cancel") { dialogInterface, _ -> dialogInterface.cancel() }
 
                 }
                 builder.create().show()
                 return true
             }
             R.id.isFavouriteCheckBox -> {
-                val note = noteAdapter.getNote()
-                note.isFavourite = !note.isFavourite
-                mNoteViewModel.update(note)
+                noteAdapter.getNote().also {
+                    it.isFavourite = !it.isFavourite
+                    mNoteViewModel.update(it)
+                }
                 noteAdapter.notifyItemChanged(item.groupId)
                 return true
             }
@@ -188,17 +172,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.noteAmountText.text = getString(R.string.note_amount_text) + " " + notes.count()
         })
 
-        val recyclerNote = findViewById<RecyclerView>(R.id.noteRecycler)
-        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
-            val layoutManager: RecyclerView.LayoutManager = GridLayoutManager(applicationContext, 2, GridLayoutManager.VERTICAL, false)
-            recyclerNote.layoutManager = layoutManager
-        }
-        else{
-            val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
-            recyclerNote.layoutManager = layoutManager
+        findViewById<RecyclerView>(R.id.noteRecycler).apply {
+            layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                GridLayoutManager(applicationContext, 2, GridLayoutManager.VERTICAL, false) }
+            else{
+                LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false) }
+            adapter = noteAdapter
         }
 
-        recyclerNote.adapter = noteAdapter
+
     }
 
 

@@ -74,8 +74,4 @@
 
     </ScrollView>
 
-    <include layout="@layout/note_tools_content"/>
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
