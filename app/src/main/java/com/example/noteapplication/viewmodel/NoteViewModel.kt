@@ -1,6 +1,7 @@
 package com.example.noteapplication.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.example.noteapplication.data.NoteDatabase
@@ -17,8 +18,11 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     var currentSortTpe: SortType = SortType.ByDate
 
     val getAll: LiveData<List<Note>> = noteDao.getAll()
+    val getTrashAll: LiveData<List<Note>> = noteDao.getTrashAll()
     fun add(note: Note) = noteDao.add(note)
     fun delete(note: Note) = noteDao.delete(note)
+    fun putInTrash(note: Note) = noteDao.putInTrash(note.id)
+
     fun update(note:Note) = noteDao.update(note)
     fun getById(id:Int): Note = noteDao.getById(id)
     fun orderByDate(isAsc: Boolean = isAscSort): List<Note> = noteDao.orderByDate(isAsc)
@@ -29,9 +33,9 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         currentSortTpe = sortType
         isAscSort = isAsc
         return when (sortType){
-            SortType.IsFavourite -> return orderByIsFavourite(isAsc)
-            SortType.ByDate -> return orderByDate(isAsc)
-            SortType.TextAmount -> return orderByTextAmount(isAsc)
+            SortType.IsFavourite -> orderByIsFavourite(isAsc)
+            SortType.ByDate -> orderByDate(isAsc)
+            SortType.TextAmount -> orderByTextAmount(isAsc)
         }
     }
 

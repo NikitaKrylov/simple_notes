@@ -13,11 +13,17 @@ interface NoteDao {
     @Delete
     fun delete(note: Note)
 
+    @Query("UPDATE note_table SET inTrash = 1 WHERE id = :id")
+    fun putInTrash(id: Int)
+
     @Update
     fun update(note:Note)
 
-    @Query("SELECT * FROM note_table ORDER BY id ASC")
+    @Query("SELECT * FROM note_table WHERE inTrash=0 ORDER BY id ASC")
     fun getAll(): LiveData<List<Note>>
+
+    @Query("SELECT * FROM note_table WHERE inTrash=1")
+    fun getTrashAll(): LiveData<List<Note>>
 
     @Query("SELECT * FROM NOTE_TABLE WHERE id IN (:id)")
     fun getById(id:Int): Note

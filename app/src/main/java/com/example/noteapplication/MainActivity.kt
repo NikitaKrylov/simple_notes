@@ -12,7 +12,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
@@ -41,9 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         setApplicationTheme(preferences.getString("theme_list_preferences", "Light"))
-
         setContentView(binding.root)
-
         binding.navigationView.setNavigationItemSelectedListener(this)
 
 //        Support Action Bar
@@ -134,7 +131,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     type = "text/plain"
                 }
                 startActivity(intent)
-                return true
             }
             R.id.delete_menu_btn -> {
                 val builder = androidx.appcompat.app.AlertDialog.Builder(this)
@@ -148,7 +144,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                 }
                 builder.create().show()
-                return true
             }
             R.id.isFavouriteCheckBox -> {
                 noteAdapter.getNote().also {
@@ -156,9 +151,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     mNoteViewModel.update(it)
                 }
                 noteAdapter.notifyItemChanged(item.groupId)
-                return true
             }
-
 
         }
         return super.onContextItemSelected(item)
@@ -167,10 +160,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun setNoteRecycler(){
         noteAdapter = NoteAdapter(this )
-        mNoteViewModel.getAll.observe(this, Observer { notes ->
-            noteAdapter.setData(mNoteViewModel.sort())
+        mNoteViewModel.getAll.observe(this) { notes ->
+            noteAdapter.setData(notes)
+//            noteAdapter.setData(mNoteViewModel.sort())
             binding.noteAmountText.text = getString(R.string.note_amount_text) + " " + notes.count()
-        })
+        }
 
         findViewById<RecyclerView>(R.id.noteRecycler).apply {
             layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
@@ -189,16 +183,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.action_settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                return true
             }
             R.id.action_trashbox -> {
                 Intent(this, TrashBoxActivity::class.java).also {
                     startActivity(it)
                 }
-                return true
             }
         }
-        return false
+        return true
     }
 
     companion object{
