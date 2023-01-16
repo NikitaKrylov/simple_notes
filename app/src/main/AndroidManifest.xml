@@ -11,7 +11,8 @@
         android:theme="@style/Theme.NoteApplication">
         <activity
             android:name=".TrashNoteActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.NoteApplication.NoActionBar"/>
         <activity
             android:name=".TrashBoxActivity"
             android:exported="false"

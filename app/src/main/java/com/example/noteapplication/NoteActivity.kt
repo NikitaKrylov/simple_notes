@@ -15,18 +15,18 @@ import com.example.noteapplication.databinding.ActivityNoteBinding
 import com.example.noteapplication.model.Note
 import com.example.noteapplication.viewmodel.NoteViewModel
 import java.util.*
+import androidx.annotation.ColorRes as ColorRes
 
 
 //Страница чтения и редактирования заметки
 class NoteActivity : AppCompatActivity() {
 
-    private var IS_SAVE_MOD: Boolean = false
     private lateinit var mNoteViewModel : NoteViewModel
     private lateinit var titleInput : EditText
     private lateinit var textInput : EditText
     private lateinit var backgroundSurface : View
     private var currentNote : Note ?= null
-    private lateinit var binding:ActivityNoteBinding
+    private lateinit var binding: ActivityNoteBinding
     private var destroyWithoutSaving = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,6 @@ class NoteActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-
         mNoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
 
 //      Views
@@ -48,19 +47,12 @@ class NoteActivity : AppCompatActivity() {
         textInput = findViewById(R.id.noteText)
         backgroundSurface = findViewById(R.id.note_background)
 
-
-
-        val arguments = intent.extras
-        arguments?.also {
-            IS_SAVE_MOD = it.getBoolean("IS_SAVE_MOD", false)
-            if (IS_SAVE_MOD) {
-                currentNote = arguments.getInt("NOTE_ID").let { mNoteViewModel.getById(it) } ?: null
-                setDataToView(currentNote!!)
+        intent.extras?.apply {
+            currentNote = mNoteViewModel.getById(getInt("NOTE_ID")).also {
+                setDataToView(it)
             }
-            else{
-                setBackgroundColor(getColor(R.color.default_note_background))
-            }
-        } ?: {
+
+        } ?: run {
             setBackgroundColor(getColor(R.color.default_note_background))
         }
 
@@ -81,7 +73,7 @@ class NoteActivity : AppCompatActivity() {
         window.navigationBarColor = color
     }
 
-    private fun updateNote(id: Int, title: String, text: String, color: Int, date: Date, isFavourite: Boolean){
+    private fun updateNote(id: Int, title: String, text: String, @ColorRes color: Int, date: Date, isFavourite: Boolean){
         if (titleInput.text.isEmpty() && textInput.text.isEmpty()) {
             currentNote?.let {
                 mNoteViewModel.putInTrash(it)
@@ -92,7 +84,7 @@ class NoteActivity : AppCompatActivity() {
         }
     }
 
-    private fun createNote(title: String, text: String, color: Int, isFavourite: Boolean){
+    private fun createNote(title: String, text: String, @ColorRes color: Int, isFavourite: Boolean){
         if (title.isNotEmpty() || text.isNotEmpty()) {
             currentNote = Note(0, title, text, color, Date(), isFavourite, 0)
             currentNote?.let{ mNoteViewModel.add(it) }
@@ -105,17 +97,14 @@ class NoteActivity : AppCompatActivity() {
     }
 
     private fun createDeleteDialog(){
-        val builder = androidx.appcompat.app.AlertDialog.Builder(this, R.style.Widget_Dialog_Alert)
-        builder.apply {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this, R.style.Widget_Dialog_Alert).apply {
             setMessage(resources.getString(R.string.delete_question))
             setNegativeButton("Cancel") { dialogInterface, _ -> dialogInterface.cancel() }
             setPositiveButton("Delete") { _, _ ->
 
-                if (IS_SAVE_MOD) {
-                    currentNote?.let {
-                        deleteNote(it)
-                        destroyWithoutSaving = true
-                    }
+                currentNote?.also {
+                    deleteNote(it)
+                    destroyWithoutSaving = true
                 }
                 finish()
                 overridePendingTransition(R.anim.no_animation, R.anim.slide_to_bottom)
@@ -175,23 +164,18 @@ class NoteActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
-        Toast.makeText(this, currentNote.toString(), Toast.LENGTH_SHORT).show()
-
         if (destroyWithoutSaving) return
-        if (IS_SAVE_MOD){
-            currentNote?.apply {
-                updateNote(
-                    id,
-                    titleInput.text.toString(),
-                    textInput.text.toString(),
-                    R.color.default_note_background,
-                    creationDate,
-                    binding.isFavouriteCheckBox.isChecked
-                )
-            }
-        }
-        else{
+
+        currentNote?.apply {
+            updateNote(
+                id,
+                titleInput.text.toString(),
+                textInput.text.toString(),
+                R.color.default_note_background,
+                creationDate,
+                binding.isFavouriteCheckBox.isChecked
+            )
+        } ?: run {
             createNote(
                 titleInput.text.toString(),
                 textInput.text.toString(),
@@ -199,6 +183,7 @@ class NoteActivity : AppCompatActivity() {
                 binding.isFavouriteCheckBox.isChecked
             )
         }
+
     }
 
 }

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
@@ -25,6 +27,7 @@ import com.example.noteapplication.viewmodel.SortType
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
+const val TAG = ".MainActivity"
 
 // Страница приложения с выводом всех заметок
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -65,6 +68,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onResume() {
         super.onResume()
         setApplicationTheme(preferences.getString("theme_list_preferences", "Light"))
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "stop")
+        binding.navigationDrawer.closeDrawer(Gravity.START)
     }
 
     private fun setApplicationTheme(string: String?) {
@@ -163,9 +172,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mNoteViewModel.getAll.observe(this) { notes ->
             noteAdapter.setData(notes)
 //            noteAdapter.setData(mNoteViewModel.sort())
-            binding.noteAmountText.text = getString(R.string.note_amount_text) + " " + notes.count()
+            binding.noteAmountText.text = "${getString(R.string.note_amount_text)} ${notes.count()}"
         }
-
         findViewById<RecyclerView>(R.id.noteRecycler).apply {
             layoutManager = if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
                 GridLayoutManager(applicationContext, 2, GridLayoutManager.VERTICAL, false) }

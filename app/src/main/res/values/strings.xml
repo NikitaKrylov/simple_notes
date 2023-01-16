@@ -39,6 +39,11 @@
     <string name="requires_application_restart">Requires application restart</string>
     <string name="note_amount_text">There are notes:</string>
     <string name="trash_note_amount_text">Notes in bin:</string>
+    <string name="successfully_restore_all">All notes successfully restored</string>
+    <string name="delete_all_forever_question">Do you want to delete all notes forever?</string>
+    <string name="delete_note_forever_question">Do you want to delete note forever?</string>
+    <string name="restore_all_question">Do you want to restore all notes?</string>
+    <string name="restore_note_question">Do you want to restore note?</string>
     <string name="not_implemented">Not implemented</string>
     <string name="large_text" translatable="false">
         "Material is the metaphor.\n\n"
@@ -129,6 +134,7 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="successfully_delete_all_forever">Trash bin was emptied</string>
 
 
 </resources>

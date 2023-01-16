@@ -16,6 +16,15 @@ interface NoteDao {
     @Query("UPDATE note_table SET inTrash = 1 WHERE id = :id")
     fun putInTrash(id: Int)
 
+    @Query("UPDATE note_table SET inTrash = 0 WHERE id = :id")
+    fun restore(id: Int)
+
+    @Query("UPDATE note_table SET inTrash = 0 WHERE inTrash = 1")
+    fun restoreAllFromTrash()
+
+    @Query("DELETE FROM note_table WHERE inTrash = 1")
+    fun deleteAllForever()
+
     @Update
     fun update(note:Note)
 

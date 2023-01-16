@@ -22,6 +22,9 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     fun add(note: Note) = noteDao.add(note)
     fun delete(note: Note) = noteDao.delete(note)
     fun putInTrash(note: Note) = noteDao.putInTrash(note.id)
+    fun restoreAllFromTrash() = noteDao.restoreAllFromTrash()
+    fun deleteAllForever() = noteDao.deleteAllForever()
+    fun restore(note: Note) = noteDao.restore(note.id)
 
     fun update(note:Note) = noteDao.update(note)
     fun getById(id:Int): Note = noteDao.getById(id)

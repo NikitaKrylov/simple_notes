@@ -45,6 +45,12 @@
     <string name="note_amount_text">Всего заметок:</string>
     <string name="trash_note_amount_text">Заметок в корзине:</string>
     <string name="not_implemented">Не реализовано</string>
+    <string name="successfully_restore_all">Все заметки успешно восстановлены</string>
+    <string name="successfully_delete_all_forever">Корзина очищена</string>
+    <string name="delete_all_forever_question">Отчистить корзину?</string>
+    <string name="restore_all_question">Восстановить все заметки?</string>
+    <string name="delete_note_forever_question">Удалить заметку из корзины?</string>
+    <string name="restore_note_question">Восстановить заметку?</string>
 
 
 </resources>

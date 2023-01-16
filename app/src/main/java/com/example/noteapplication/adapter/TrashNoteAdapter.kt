@@ -1,24 +1,22 @@
 package com.example.noteapplication.adapter
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.view.*
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.MenuCompat
+import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapplication.NoteActivity
 import com.example.noteapplication.R
+import com.example.noteapplication.TrashNoteActivity
 import com.example.noteapplication.model.Note
 import java.text.SimpleDateFormat
 
-
-class NoteAdapter(val context: Context) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
-
+class TrashNoteAdapter(val context: Context): RecyclerView.Adapter<TrashNoteAdapter.NoteViewHolder>() {
     private var notes = emptyList<Note>()
     private var preferences : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     private var position: Int = 0;
@@ -57,10 +55,10 @@ class NoteAdapter(val context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
             cardItem.apply {
                 setCardBackgroundColor(color)
                 setOnClickListener {
-                    val intent = Intent(context, NoteActivity::class.java).apply {
+                    val intent = Intent(context, TrashNoteActivity::class.java).apply {
                         putExtra("NOTE_ID", note.id)
                     }
-                    startActivity(context, intent, null )
+                    ContextCompat.startActivity(context, intent, null)
                 }
                 setOnLongClickListener {
                     setPosition(position)
@@ -82,14 +80,12 @@ class NoteAdapter(val context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
     private fun setPosition(position: Int){
         this.position = position
     }
-
     fun setData(notes : List<Note>) {
         this.notes = notes
         notifyDataSetChanged()
     }
 
-
-    class NoteViewHolder(itemView: View, val context: Context) : RecyclerView.ViewHolder(itemView), View.OnCreateContextMenuListener{
+    class NoteViewHolder(itemView: View, val context: Context): RecyclerView.ViewHolder(itemView), View.OnCreateContextMenuListener {
         val title: TextView = itemView.findViewById(R.id.note_card_title)
         val text: TextView = itemView.findViewById(R.id.note_card_text)
         val date: TextView = itemView.findViewById(R.id.note_card_date)
@@ -100,14 +96,9 @@ class NoteAdapter(val context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
             cardItem.setOnCreateContextMenuListener(this)
         }
 
-        override fun onCreateContextMenu(menu: ContextMenu?, p1: View?, p2: ContextMenu.ContextMenuInfo?)
-        {
-            (context as Activity).menuInflater.inflate(R.menu.note_card_context_menu, menu)
-            MenuCompat.setGroupDividerEnabled(menu, true)
+        override fun onCreateContextMenu(menu: ContextMenu?, p1: View?, p2: ContextMenu.ContextMenuInfo?) {
+            TODO("Not yet implemented")
         }
 
     }
-
-
-
 }
