@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,7 +22,6 @@ import com.example.noteapplication.adapter.NoteAdapter
 import com.example.noteapplication.databinding.ActivityMainBinding
 import com.example.noteapplication.model.Note
 import com.example.noteapplication.viewmodel.NoteViewModel
-import com.example.noteapplication.viewmodel.SortType
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         binding.fab.setOnClickListener {
-            intent = Intent(applicationContext, NoteActivity::class.java)
+            intent = NoteActivity.getIntent(this)
             startActivity(intent)
         }
         setNoteRecycler()
@@ -72,7 +70,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onStop() {
         super.onStop()
-        Log.d(TAG, "stop")
         binding.navigationDrawer.closeDrawer(Gravity.START)
     }
 
@@ -111,30 +108,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         item.isChecked = item.isChecked
 
-        when (item.itemId) {
-            R.id.order_by_date -> noteAdapter.setData(mNoteViewModel.sort(SortType.ByDate))
-
-            R.id.order_by_is_favourite -> noteAdapter.setData(mNoteViewModel.sort(SortType.IsFavourite))
-
-            R.id.order_by_text_amount -> noteAdapter.setData(mNoteViewModel.sort(SortType.TextAmount))
-
-            R.id.order_direction -> {
-                mNoteViewModel.isAscSort = !mNoteViewModel.isAscSort
-                if (mNoteViewModel.isAscSort) item.icon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_upward)
-                else  item.icon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_downward)
-                noteAdapter.setData(mNoteViewModel.sort())
-            }
-        }
+//        when (item.itemId) {
+//            R.id.order_by_date -> noteAdapter.setData(mNoteViewModel.sort(SortType.ByDate))
+//
+//            R.id.order_by_is_favourite -> noteAdapter.setData(mNoteViewModel.sort(SortType.IsFavourite))
+//
+//            R.id.order_by_text_amount -> noteAdapter.setData(mNoteViewModel.sort(SortType.TextAmount))
+//
+//            R.id.order_direction -> {
+//                mNoteViewModel.isAscSort = !mNoteViewModel.isAscSort
+//                if (mNoteViewModel.isAscSort) item.icon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_upward)
+//                else  item.icon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_downward)
+//                noteAdapter.setData(mNoteViewModel.sort())
+//            }
+//        }
         return true
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
+        val selectedNote = noteAdapter.getNote(noteAdapter.getPosition())
 
         when (item.itemId){
             R.id.share_note_btn -> {
                 intent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    noteAdapter.getNote(noteAdapter.getPosition()).also {
+                    selectedNote.also {
                         putExtra(Intent.EXTRA_TEXT, it.title + "\n" + it.text)
                     }
                     type = "text/plain"
@@ -146,7 +144,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 builder.apply {
                     setMessage(resources.getString(R.string.delete_question))
                     setPositiveButton("Ok") { _, _ ->
-                        mNoteViewModel.delete(noteAdapter.getNote(noteAdapter.getPosition()))
+                        mNoteViewModel.putInTrash(selectedNote)
                         Snackbar.make(binding.fab, "Deleted successfully", Snackbar.LENGTH_LONG).show()
                     }
                     setNegativeButton("Cancel") { dialogInterface, _ -> dialogInterface.cancel() }
@@ -171,7 +169,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         noteAdapter = NoteAdapter(this )
         mNoteViewModel.getAll.observe(this) { notes ->
             noteAdapter.setData(notes)
-//            noteAdapter.setData(mNoteViewModel.sort())
             binding.noteAmountText.text = "${getString(R.string.note_amount_text)} ${notes.count()}"
         }
         findViewById<RecyclerView>(R.id.noteRecycler).apply {
@@ -201,7 +198,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    companion object{
-        const val LOG_TAG = "MY_LOG"
-    }
 }

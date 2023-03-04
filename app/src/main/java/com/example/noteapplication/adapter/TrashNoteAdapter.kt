@@ -1,5 +1,8 @@
+@file:Suppress("RedundantSemicolon")
+
 package com.example.noteapplication.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -8,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuCompat
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapplication.NoteActivity
@@ -55,9 +59,7 @@ class TrashNoteAdapter(val context: Context): RecyclerView.Adapter<TrashNoteAdap
             cardItem.apply {
                 setCardBackgroundColor(color)
                 setOnClickListener {
-                    val intent = Intent(context, TrashNoteActivity::class.java).apply {
-                        putExtra("NOTE_ID", note.id)
-                    }
+                    val intent = TrashNoteActivity.getIntent(context, note.id)
                     ContextCompat.startActivity(context, intent, null)
                 }
                 setOnLongClickListener {
@@ -97,7 +99,8 @@ class TrashNoteAdapter(val context: Context): RecyclerView.Adapter<TrashNoteAdap
         }
 
         override fun onCreateContextMenu(menu: ContextMenu?, p1: View?, p2: ContextMenu.ContextMenuInfo?) {
-            TODO("Not yet implemented")
+            (context as Activity).menuInflater.inflate(R.menu.trash_note_card_context_menu, menu)
+            MenuCompat.setGroupDividerEnabled(menu, true)
         }
 
     }

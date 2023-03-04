@@ -44,6 +44,9 @@
     <string name="delete_note_forever_question">Do you want to delete note forever?</string>
     <string name="restore_all_question">Do you want to restore all notes?</string>
     <string name="restore_note_question">Do you want to restore note?</string>
+    <string name="delete_forever">Delete forever</string>
+    <string name="restore">Restore</string>
+
     <string name="not_implemented">Not implemented</string>
     <string name="large_text" translatable="false">
         "Material is the metaphor.\n\n"

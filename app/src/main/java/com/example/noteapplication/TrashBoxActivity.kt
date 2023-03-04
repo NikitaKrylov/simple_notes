@@ -2,12 +2,10 @@ package com.example.noteapplication
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.media.MediaSession2Service
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noteapplication.adapter.TrashNoteAdapter
 import com.example.noteapplication.databinding.ActivityTrashBoxBinding
-import com.example.noteapplication.model.Note
 import com.example.noteapplication.viewmodel.NoteViewModel
 
 class TrashBoxActivity : AppCompatActivity() {
@@ -34,9 +31,7 @@ class TrashBoxActivity : AppCompatActivity() {
         supportActionBar?.title = resources.getString(R.string.trashbox)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
         setTrashNoteRecycler()
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -46,6 +41,15 @@ class TrashBoxActivity : AppCompatActivity() {
             R.id.restore_all -> createRestoreDialog()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val selectedNote = noteAdapter.getNote(noteAdapter.getPosition())
+        when (item.itemId){
+            R.id.trash_note_card_delete_forever -> mNoteViewModel.delete(selectedNote)
+            R.id.trash_note_card_restore -> mNoteViewModel.restore(selectedNote)
+        }
+        return super.onContextItemSelected(item)
     }
 
     private fun createDeleteForeverDialog(){
@@ -66,7 +70,7 @@ class TrashBoxActivity : AppCompatActivity() {
             setMessage(R.string.restore_all_question)
             setNegativeButton("Cancel") { dialogInterface, _ -> dialogInterface.cancel() }
             setPositiveButton("Restore all") { _, _ ->
-                mNoteViewModel.restoreAllFromTrash()
+                mNoteViewModel.restoreAll()
                 val intent = Intent(applicationContext, MainActivity::class.java)
                 startActivity(intent)
             }

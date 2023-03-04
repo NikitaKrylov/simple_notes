@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/trash_note_card_restore"
+        android:title="@string/restore"
+        android:icon="@drawable/restore_from_trash"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/trash_note_card_delete_forever"
+        android:title="@string/delete_forever"
+        android:icon="@drawable/delete_forever"
+        app:showAsAction="ifRoom"
+        />
+</menu>

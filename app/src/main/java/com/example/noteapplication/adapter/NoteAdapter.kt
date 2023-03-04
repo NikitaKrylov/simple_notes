@@ -2,7 +2,6 @@ package com.example.noteapplication.adapter
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.view.*
 import android.widget.*
@@ -17,11 +16,12 @@ import com.example.noteapplication.model.Note
 import java.text.SimpleDateFormat
 
 
+
 class NoteAdapter(val context: Context) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     private var notes = emptyList<Note>()
     private var preferences : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-    private var position: Int = 0;
+    private var position: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val noteView = LayoutInflater.from(context).inflate(R.layout.note_list_item, parent, false)
@@ -57,9 +57,7 @@ class NoteAdapter(val context: Context) : RecyclerView.Adapter<NoteAdapter.NoteV
             cardItem.apply {
                 setCardBackgroundColor(color)
                 setOnClickListener {
-                    val intent = Intent(context, NoteActivity::class.java).apply {
-                        putExtra("NOTE_ID", note.id)
-                    }
+                    val intent = NoteActivity.getIntent(context, note.id)
                     startActivity(context, intent, null )
                 }
                 setOnLongClickListener {

@@ -1,16 +1,21 @@
 package com.example.noteapplication
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.example.noteapplication.databinding.ActivityTrashNoteBinding
 import com.example.noteapplication.model.Note
 import com.example.noteapplication.viewmodel.NoteViewModel
+
+private const val EXTRA_TRASH_NOTE_ID = "com.noteapplication.trashnoteactivity.note_id"
+
 
 class TrashNoteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTrashNoteBinding
@@ -30,15 +35,16 @@ class TrashNoteActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         intent.extras?.let{
-            currentNote = mNoteViewModel.getById(it.getInt("NOTE_ID"))
+            currentNote = mNoteViewModel.getById(it.getInt(EXTRA_TRASH_NOTE_ID))
             setDataToView(currentNote)
         } ?: run{
-//            throw
+            throw Exception("id must be given into activity")
         }
     }
 
     private fun setDataToView(note: Note){
         note.let{
+            Toast.makeText(this, it.deletingDateTime.toString(), Toast.LENGTH_LONG).show()
             binding.trashNoteText.text = it.text
             binding.trashNoteTitle.text = it.title
             binding.isFavouriteCheckBoxTrashNote.isChecked = it.isFavourite
@@ -93,5 +99,11 @@ class TrashNoteActivity : AppCompatActivity() {
             }
         }
         builder.create().show()
+    }
+
+    companion object {
+        fun getIntent(context: Context, noteId: Int) = Intent(context, TrashNoteActivity::class.java).apply {
+            putExtra(EXTRA_TRASH_NOTE_ID, noteId)
+        }
     }
 }

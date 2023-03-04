@@ -1,5 +1,6 @@
 package com.example.noteapplication
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.example.noteapplication.viewmodel.NoteViewModel
 import java.util.*
 import androidx.annotation.ColorRes as ColorRes
 
+private const val EXTRA_NOTE_ID = "com.noteapplication.noteactivity.note_id"
 
 //Страница чтения и редактирования заметки
 class NoteActivity : AppCompatActivity() {
@@ -48,7 +50,7 @@ class NoteActivity : AppCompatActivity() {
         backgroundSurface = findViewById(R.id.note_background)
 
         intent.extras?.apply {
-            currentNote = mNoteViewModel.getById(getInt("NOTE_ID")).also {
+            currentNote = mNoteViewModel.getById(getInt(EXTRA_NOTE_ID)).also {
                 setDataToView(it)
             }
 
@@ -107,7 +109,7 @@ class NoteActivity : AppCompatActivity() {
                     destroyWithoutSaving = true
                 }
                 finish()
-                overridePendingTransition(R.anim.no_animation, R.anim.slide_to_bottom)
+                overridePendingTransition(R.anim.no_animation, R.anim.totate_right)
             }
 
         }
@@ -184,6 +186,14 @@ class NoteActivity : AppCompatActivity() {
             )
         }
 
+    }
+
+    companion object {
+        fun getIntent(context: Context, noteId: Int? = null): Intent {
+            val intent = Intent(context, NoteActivity::class.java)
+            noteId?.also { intent.putExtra(EXTRA_NOTE_ID, it) }
+            return intent
+        }
     }
 
 }

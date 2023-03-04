@@ -13,8 +13,10 @@ class DateTimeConverter {
     }
 
     @TypeConverter
-    fun fromDate(date: Date): Long{
-        return date.time
+    fun fromDate(date: Date?): Long{
+        return date?.time ?: 0.toLong()
     }
+
+
 
 }

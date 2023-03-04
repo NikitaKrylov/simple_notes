@@ -18,6 +18,7 @@ data class Note(
     val backgroundColorId:Int,
     val creationDate:Date,
     var isFavourite:  Boolean = false,
-    var inTrash: Int = 0
+    var inTrash: Int = 0,
+    val deletingDateTime:Date? = null
 
 ): Parcelable

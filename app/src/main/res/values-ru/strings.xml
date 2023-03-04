@@ -51,6 +51,9 @@
     <string name="restore_all_question">Восстановить все заметки?</string>
     <string name="delete_note_forever_question">Удалить заметку из корзины?</string>
     <string name="restore_note_question">Восстановить заметку?</string>
+    <string name="delete_forever">Удалить навсегда</string>
+    <string name="restore">Восстановить</string>
+
 
 
 </resources>
